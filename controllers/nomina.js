@@ -255,6 +255,22 @@ async function CalculoPolizaNomina(mes,anio,fechaNomina,tipoNomina,lugarTrabajo)
     }
 }
 
+async function ConsultaAsientoPolizaBpro(idSucursal, fechaPaga, tipo){
+    try {
+        let pool = await sql.connect(config);
+        let peticion = await pool.request()
+                                .input('idSucursal', sql.VarChar(6), idSucursal)
+                                .input('fechaPaga', sql.VarChar(10), fechaPaga)
+                                .input('tipo', sql.VarChar(5), tipo)
+                                .execute('CONSULTA_ASIENTO_POLIZA_BPRO')
+
+        return peticion.recordsets
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
 module.exports={
     fechasPagas,
     ObtieneAsientoContablePaga,
@@ -268,5 +284,6 @@ module.exports={
     ReporteExcelMeta,
     ConsultaSabanaMeta,
     GruposMeta,
-    CalculoPolizaNomina
+    CalculoPolizaNomina,
+    ConsultaAsientoPolizaBpro
 }

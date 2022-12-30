@@ -548,4 +548,50 @@ router.route('/fechasPaga').post((req,resp) => {
 
 })
 
+
+/**
+ * @swagger
+ * /api/nomina/ConsultaAsientoPolizaBpro:
+ *   post:
+ *      description: Consulta la informacion que se dejo en tablas intermedias sp CONSULTA_ASIENTO_POLIZA_BPRO
+ *      tags: [Nomina]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: idSucursal
+ *            description: id Meta 4 del lugar de trabajo
+ *            type: string
+ *            in: formData
+ *            required: true
+ *          - name: fechaPaga
+ *            description: Fecha de la paga formato YYYYMMdd
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: tipo
+ *            description: (S) semanal, (Q) quincena, (FS) finiquito semana, (FQ) finiquito quincena
+ *            in: formData
+ *            type: string
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: tabla con la sabana de meta4
+ */
+ router.route('/ConsultaAsientoPolizaBpro').post((req,resp) => {
+    
+    let idSucursal = req.body.idSucursal
+    let fechaPaga = req.body.fechaPaga
+    let tipo = req.body.tipo
+
+    dbNomina.ConsultaAsientoPolizaBpro(idSucursal,fechaPaga,tipo).then(res =>{
+        if(res.length > 0 ){
+            resp.status(200).json(res[0])
+        }else{
+            resp.status(200).json([])
+        }
+        
+    })
+
+})
+
 module.exports = router
