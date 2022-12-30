@@ -1,0 +1,21 @@
+{
+  "name": "apinomina",
+  "version": "1.0.0",
+  "description": "Api para el proyecto de nomina swagger",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon api.js"
+  },
+  "author": "Roberto Almanza",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mssql": "^8.1.2",
+    "nodemon": "^2.0.19",
+    "swagger-jsdoc": "^6.2.4",
+    "swagger-ui-express": "^4.5.0"
+  }
+}
