@@ -288,4 +288,69 @@ router.route('/ConsultaAsientoPolizaBproSicoss').post((req,resp) =>{
 
 })
 
+/**
+ * @swagger
+ * /api/nominaSICOSS/ConsultaBitacoraPolizasSICOSS:
+ *   post:
+ *      description: Regresa las fechas de paga de nomina de acuerdo a los parametros de mes y año
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: mes
+ *            description: mes de la paga
+ *            in: formData
+ *            required: true
+ *          - name: anio
+ *            description: año de la paga
+ *            in: formData
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: listado fecha pagas nomina
+ */
+router.route('/ConsultaBitacoraPolizasSICOSS').post((req,resp) => {
+    
+    let mes = req.body.mes
+    let anio = req.body.anio
+
+    peticion.ConsultaBitacoraPolizasSICOSS(mes, anio).then(res =>{
+        resp.status(200).json(res[0])
+    })
+})
+
+/**
+ * @swagger
+ * /api/nominaSICOSS/ConsultaPolizaSICOSS:
+ *   post:
+ *      description: Regresa la informacion de la poliza Generada
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: lugarTrabajo
+ *            description: Lugar de trabajo que deseamos consultar
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: idCabecero
+ *            description: id de la tabla intermedia
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: informacion de la poliza generada
+ */
+router.route('/ConsultaPolizaSICOSS').post((req,resp) => {
+
+    let lugarTrabajo = req.body.lugarTrabajo
+    let idCabecero = req.body.idCabecero
+
+    peticion.ConsultaPolizaSICOSS(lugarTrabajo,idCabecero).then(res =>{
+        resp.status(200).json(res[0])
+    })
+
+})
+
 module.exports = router

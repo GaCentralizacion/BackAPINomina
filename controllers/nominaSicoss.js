@@ -73,6 +73,7 @@ async function GruposMetaSICOSS(){
     }
     catch(err){
         console.log(err);
+        return []
     }
 
 }
@@ -90,6 +91,44 @@ async function ConsultaAsientoPolizaBproSICOSS(idSucursal, fechaPaga, tipo, peri
         return peticion.recordsets
     } catch (err) {
         console.log(err);
+        return []
+    }
+}
+
+async function ConsultaBitacoraPolizasSICOSS(mes, anio){
+
+    try{
+
+        let pool = await sql.connect(config);
+        let peticion = await pool.request()
+                                .input('mes',sql.Int, mes)
+                                .input('anio', sql.Int, anio)
+                                .execute('CONSULTA_BITACORA_NOSCA_SICOSS')
+    
+        return peticion.recordsets
+
+    }catch(err){
+        console.log(err);
+        return []
+    }
+
+}
+
+async function ConsultaPolizaSICOSS(lugarTrabajo,idCabecero){
+    try {
+
+        let pool = await sql.connect(config);
+        let peticion = await pool.request()
+                                .input('lugarTrabajo',sql.VarChar(5), lugarTrabajo)
+                                .input('idCabecero', sql.Int, idCabecero)
+                                .execute('SEL_DATOS_POLIZA_SUCURSAL_SICOSS_SP')
+
+        return peticion.recordsets
+
+
+    } catch (error) {
+        console.log(error);
+        return []
     }
 }
 
@@ -99,4 +138,6 @@ module.exports = {
     ,CalculoPolizaSicoss
     ,GruposMetaSICOSS
     ,ConsultaAsientoPolizaBproSICOSS
+    ,ConsultaBitacoraPolizasSICOSS
+    ,ConsultaPolizaSICOSS
 }
