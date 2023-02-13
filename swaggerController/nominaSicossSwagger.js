@@ -197,7 +197,7 @@ router.route('/ConsultaSabanaMetaGrupoSicoss').post((req, resp) => {
             for (let i = 0; i < jsonGrupos.length; i++){
                 const nomGrupo = jsonGrupos[i].nombre_grupo;
                 
-                js = new Object()
+               
                 //final = new Array()
 
                 /**Filtramos los detalles del grupo */
@@ -206,6 +206,8 @@ router.route('/ConsultaSabanaMetaGrupoSicoss').post((req, resp) => {
                 /**Recorremos los datos de la sabana */
                 for (let j = 0; j < jsonData.length; j++){
                     const data = jsonData[j]
+
+                    js = new Object()
 
                     /**Recorremos los detalles del grupo */
                     for (let d = 0; d < detalle.length; d++){
