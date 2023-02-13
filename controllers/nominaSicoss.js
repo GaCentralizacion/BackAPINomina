@@ -55,6 +55,7 @@ async function GruposMetaSICOSS(){
         JOIN MAPA_ACUMULADOS_SABANA mas
         ON gc1.id_concepto = mas.id
         where gc.estatus = 1
+        --and gc.id_grupo = 2
 
         SELECT gc.grupoId as id_grupo
         , gc.nombreGrupo as nombre_grupo
