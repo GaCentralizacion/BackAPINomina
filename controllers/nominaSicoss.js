@@ -79,7 +79,7 @@ async function GruposMetaSICOSS(){
 
 }
 
-async function ConsultaAsientoPolizaBproSICOSS(idSucursal, fechaPaga, tipo, periodo){
+async function ConsultaAsientoPolizaBproSICOSS(idSucursal, fechaPaga, tipo, periodo,tipoNomina){
     try {
         let pool = await sql.connect(config);
         let peticion = await pool.request()
@@ -87,6 +87,7 @@ async function ConsultaAsientoPolizaBproSICOSS(idSucursal, fechaPaga, tipo, peri
                                 .input('fechaPaga', sql.VarChar(10), fechaPaga)
                                 .input('tipo', sql.Int, tipo)
                                 .input('periodo',sql.Int, periodo)
+                                .input('tipoNomina',sql.Int, tipoNomina)
                                 .execute('CONSULTA_ASIENTO_POLIZA_BPRO_SICOSS')
 
         return peticion.recordsets
