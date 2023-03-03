@@ -273,6 +273,11 @@ router.route('/ConsultaSabanaMetaGrupoSicoss').post((req, resp) => {
  *            in: formData
  *            type: number
  *            required: true
+ *          - name: tipoNomina
+ *            description: Es el número de semana o quincena
+ *            in: formData
+ *            type: number
+ *            required: true
  *      responses:
  *          '200':
  *              description: Se obtuvo la informacion de sicoss
@@ -283,8 +288,9 @@ router.route('/ConsultaAsientoPolizaBproSicoss').post((req,resp) =>{
     let fechaPaga = req.body.fechaPaga
     let tipo = req.body.tipo
     let periodo = req.body.periodo
+    let tipoNomina = req.body.tipoNomina
 
-    peticion.ConsultaAsientoPolizaBproSICOSS(idSucursal,fechaPaga,tipo,periodo).then(res =>{
+    peticion.ConsultaAsientoPolizaBproSICOSS(idSucursal,fechaPaga,tipo,periodo, tipoNomina).then(res =>{
         resp.status(200).json(res[0])
     })
 
