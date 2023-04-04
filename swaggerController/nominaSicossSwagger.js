@@ -361,4 +361,50 @@ router.route('/ConsultaPolizaSICOSS').post((req,resp) => {
 
 })
 
+/**
+ * @swagger
+ * /api/nominaSICOSS/ConsultaAsientoPolizaBproEmpleadoSICOSS:
+ *   post:
+ *      description: Regresa la informacion de la poliza antes de ser enviada a BPRO
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: idSucursal
+ *            description: lugar de trabajo
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: fechaPaga
+ *            description: Fecha de paga
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: tipo
+ *            description: Es la frecuencia 1. Semanal, 2. Quincenal
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: tipoNomina
+ *            description: Es el número de semana o quincena
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: Se obtuvo la informacion de sicoss
+ */
+router.route('/ConsultaAsientoPolizaBproEmpleadoSICOSS').post((req,resp) =>{
+
+    let idSucursal = req.body.idSucursal
+    let fechaPaga = req.body.fechaPaga
+    let tipo = req.body.tipo
+    let tipoNomina = req.body.tipoNomina
+
+    peticion.ConsultaAsientoPolizaBproEmpleadoSICOSS(idSucursal,fechaPaga,tipo, tipoNomina).then(res =>{
+        resp.status(200).json(res[0])
+    })
+
+})
+
 module.exports = router
