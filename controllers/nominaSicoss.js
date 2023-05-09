@@ -134,6 +134,44 @@ async function ConsultaPolizaSICOSS(lugarTrabajo,idCabecero){
     }
 }
 
+async function ConsultaAsientoPolizaBproEmpleadoSICOSS(idSucursal, fechaPaga, tipo,tipoNomina){
+    try {
+        let pool = await sql.connect(config);
+        let peticion = await pool.request()
+                                .input('idSucursal', sql.Int, idSucursal)
+                                .input('fechaPaga', sql.VarChar(10), fechaPaga)
+                                .input('tipo', sql.Int, tipo)
+                                .input('tipoNomina',sql.Int, tipoNomina)
+                                .execute('CONSULTA_ASIENTO_POLIZA_BPRO_EMPLEADO_SICOSS')
+
+        return peticion.recordsets
+    } catch (err) {
+        console.log(err);
+        return []
+    }
+}
+
+async function CalculoPolizaAbiertaSicoss(mes, anio, periodoId, periodo, tipoNomina, lugarTrabajo){
+    try {
+        
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+                                .input('mes', sql.Int, mes)
+                                .input('anio', sql.Int, anio)
+                                .input('periodoId', sql.Int, periodoId)
+                                .input('periodo', sql.Int, periodo)
+                                .input('tipoNomina',sql.Int, tipoNomina)
+                                .input('Lw', sql.Int, lugarTrabajo)
+                                .execute('CALCULO_POLIZA_ABIERTA_SICOSS')
+
+        return peticion.recordsets
+
+    } catch (error) {
+        return []
+    }
+}
+
+
 
 module.exports = {
     vistaPreviaPoliza
@@ -142,4 +180,6 @@ module.exports = {
     ,ConsultaAsientoPolizaBproSICOSS
     ,ConsultaBitacoraPolizasSICOSS
     ,ConsultaPolizaSICOSS
+    ,ConsultaAsientoPolizaBproEmpleadoSICOSS
+    ,CalculoPolizaAbiertaSicoss
 }
