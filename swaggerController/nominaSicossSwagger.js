@@ -407,4 +407,62 @@ router.route('/ConsultaAsientoPolizaBproEmpleadoSICOSS').post((req,resp) =>{
 
 })
 
+/**
+ * @swagger
+ * /api/nominaSICOSS/CalculoPolizaAbiertaSicoss:
+ *   post:
+ *      description: Regresa la informacion de pagas abiertas para la poliza antes de ser enviada a BPRO
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: mes
+ *            description: Mes de la paga
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: anio
+ *            description: Año de la paga
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: periodoId
+ *            description: Es la frecuencia 1. Semanal, 2. Quincenal
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: periodo
+ *            description: Es el número de semana o quincena
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: tipoNomina
+ *            description: 1. Normal, 2.Finiquitos, 4. Aguinaldo, 5. PTU, 6. Vales despensa
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: Lw
+ *            description: lugar de trabajo
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: Se obtuvo la informacion de sicoss
+ */
+router.route('/CalculoPolizaAbiertaSicoss').post((req,resp) =>{
+
+    let mes = req.body.mes
+    let anio = req.body.anio
+    let periodoId = req.body.periodoId
+    let periodo = req.body.periodo
+    let tipoNomina = req.body.tipoNomina
+    let lugarTrabajo = req.body.Lw
+
+    peticion.CalculoPolizaAbiertaSicoss(mes,anio,periodoId,periodo,tipoNomina,lugarTrabajo).then(res =>{
+        resp.status(200).json(res[0])
+    })
+
+})
+
 module.exports = router
