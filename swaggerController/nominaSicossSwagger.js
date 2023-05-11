@@ -278,6 +278,11 @@ router.route('/ConsultaSabanaMetaGrupoSicoss').post((req, resp) => {
  *            in: formData
  *            type: number
  *            required: true
+ *          - name: esAbierta
+ *            description: Es el número de semana o quincena
+ *            in: formData
+ *            type: number
+ *            required: true
  *      responses:
  *          '200':
  *              description: Se obtuvo la informacion de sicoss
@@ -289,8 +294,9 @@ router.route('/ConsultaAsientoPolizaBproSicoss').post((req,resp) =>{
     let tipo = req.body.tipo
     let periodo = req.body.periodo
     let tipoNomina = req.body.tipoNomina
+    let esAbierta = req.body.esAbierta
 
-    peticion.ConsultaAsientoPolizaBproSICOSS(idSucursal,fechaPaga,tipo,periodo, tipoNomina).then(res =>{
+    peticion.ConsultaAsientoPolizaBproSICOSS(idSucursal,fechaPaga,tipo,periodo, tipoNomina, esAbierta).then(res =>{
         resp.status(200).json(res[0])
     })
 
@@ -390,6 +396,11 @@ router.route('/ConsultaPolizaSICOSS').post((req,resp) => {
  *            in: formData
  *            type: number
  *            required: true
+ *          - name: esAbierta
+ *            description: Se busca en las pagas abiertas
+ *            in: formData
+ *            type: number
+ *            required: true
  *      responses:
  *          '200':
  *              description: Se obtuvo la informacion de sicoss
@@ -400,8 +411,9 @@ router.route('/ConsultaAsientoPolizaBproEmpleadoSICOSS').post((req,resp) =>{
     let fechaPaga = req.body.fechaPaga
     let tipo = req.body.tipo
     let tipoNomina = req.body.tipoNomina
+    let esAbierta = req.body.esAbierta
 
-    peticion.ConsultaAsientoPolizaBproEmpleadoSICOSS(idSucursal,fechaPaga,tipo, tipoNomina).then(res =>{
+    peticion.ConsultaAsientoPolizaBproEmpleadoSICOSS(idSucursal,fechaPaga,tipo, tipoNomina, esAbierta).then(res =>{
         resp.status(200).json(res[0])
     })
 

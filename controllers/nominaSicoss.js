@@ -79,7 +79,7 @@ async function GruposMetaSICOSS(){
 
 }
 
-async function ConsultaAsientoPolizaBproSICOSS(idSucursal, fechaPaga, tipo, periodo,tipoNomina){
+async function ConsultaAsientoPolizaBproSICOSS(idSucursal, fechaPaga, tipo, periodo,tipoNomina, esAbierta){
     try {
         let pool = await sql.connect(config);
         let peticion = await pool.request()
@@ -88,6 +88,7 @@ async function ConsultaAsientoPolizaBproSICOSS(idSucursal, fechaPaga, tipo, peri
                                 .input('tipo', sql.Int, tipo)
                                 .input('periodo',sql.Int, periodo)
                                 .input('tipoNomina',sql.Int, tipoNomina)
+                                .input('esAbierta',sql.Int, esAbierta)
                                 .execute('CONSULTA_ASIENTO_POLIZA_BPRO_SICOSS')
 
         return peticion.recordsets
@@ -134,7 +135,7 @@ async function ConsultaPolizaSICOSS(lugarTrabajo,idCabecero){
     }
 }
 
-async function ConsultaAsientoPolizaBproEmpleadoSICOSS(idSucursal, fechaPaga, tipo,tipoNomina){
+async function ConsultaAsientoPolizaBproEmpleadoSICOSS(idSucursal, fechaPaga, tipo,tipoNomina, esAbierta){
     try {
         let pool = await sql.connect(config);
         let peticion = await pool.request()
@@ -142,6 +143,7 @@ async function ConsultaAsientoPolizaBproEmpleadoSICOSS(idSucursal, fechaPaga, ti
                                 .input('fechaPaga', sql.VarChar(10), fechaPaga)
                                 .input('tipo', sql.Int, tipo)
                                 .input('tipoNomina',sql.Int, tipoNomina)
+                                .input('esAbierta',sql.Int, esAbierta)
                                 .execute('CONSULTA_ASIENTO_POLIZA_BPRO_EMPLEADO_SICOSS')
 
         return peticion.recordsets
