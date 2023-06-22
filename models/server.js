@@ -52,7 +52,10 @@ class Server{
                 './swaggerController/porcentajeSucursalSwagger.js',
                 './swaggerController/accesoSwagger.js',
                 './swaggerController/catalogosSwagger.js',
-                './swaggerController/nominaSicossSwagger.js'
+                './swaggerController/nominaSicossSwagger.js',
+                './swaggerController/prorrateoAgenciasSwagger.js',
+                './swaggerController/repercusionSwagger.js',
+                './swaggerController/mailerSwagger.js',
             ]
         }
         const swaggerDocs = swaggerJsDoc(swaggerOptions)
@@ -67,9 +70,12 @@ class Server{
         this.app.use('/api/departamentos', require('../swaggerController/departamentosSwagger'))
         this.app.use('/api/porcentajeSucursal', require('../swaggerController/porcentajeSucursalSwagger'))
         this.app.use('/api/reporteBalanza', require('../swaggerController/reporteBalanzaSwagger'))
-        this.app.use('/api/acceso', require('../swaggerController/accesoSwagger')),
-        this.app.use('/api/catalogosSICOSS', require('../swaggerController/catalogosSwagger')),
+        this.app.use('/api/acceso', require('../swaggerController/accesoSwagger'))
+        this.app.use('/api/catalogosSICOSS', require('../swaggerController/catalogosSwagger'))
         this.app.use('/api/nominaSICOSS', require('../swaggerController/nominaSicossSwagger'))
+        this.app.use('/api/prorrateoAgencias', require('../swaggerController/prorrateoAgenciasSwagger'))
+        this.app.use('/api/repercusion', require('../swaggerController/repercusionSwagger'))
+        this.app.use('/api/mailer', require('../swaggerController/mailerSwagger'))
     }
 
     listen(){
