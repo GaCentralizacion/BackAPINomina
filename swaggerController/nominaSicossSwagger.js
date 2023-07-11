@@ -477,4 +477,62 @@ router.route('/CalculoPolizaAbiertaSicoss').post((req,resp) =>{
 
 })
 
+/**
+ * @swagger
+ * /api/nominaSICOSS/InsertaBorraFechaPaga:
+ *   post:
+ *      description: Inserta registro en el calendario de pagas de polizas de nomina (INS_FECHA_PAGA_SICOSS)
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: periodoId
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: periodo
+ *            description: numero de periodo
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: tipoNomina
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: fechInicio
+ *            description: fecha inicio
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: fechFin
+ *            description: fecha fin
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: insertaBorra
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: Se obtuvo la informacion de sicoss
+ */
+router.route('/InsertaBorraFechaPaga').post((req,resp) =>{
+
+    let periodoId = req.body.periodoId
+    let periodo = req.body.periodo
+    let tipoNomina = req.body.tipoNomina
+    let fechInicio = req.body.fechInicio
+    let fechFin = req.body.fechFin
+    let insertaBorra = req.body.insertaBorra
+
+    peticion.InsertaBorraFechaPaga(periodoId,periodo,tipoNomina,fechInicio,fechFin,insertaBorra).then(res =>{
+        resp.status(200).json(res)
+    })
+
+})
+
 module.exports = router

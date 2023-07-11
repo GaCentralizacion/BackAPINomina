@@ -173,6 +173,24 @@ async function CalculoPolizaAbiertaSicoss(mes, anio, periodoId, periodo, tipoNom
     }
 }
 
+async function InsertaBorraFechaPaga(periodoId,periodo,tipoNomina,fechInicio,fechFin,insertaBorra){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('periodoId', sql.Int, periodoId)
+        .input('periodo', sql.Int, periodo)
+        .input('tipoNomina', sql.Int, tipoNomina)
+        .input('fechInicio', sql.VarChar(10), fechInicio)
+        .input('fechFin', sql.VarChar(10), fechFin)
+        .input('insertaBorra', sql.Int, insertaBorra)
+        .execute('INS_FECHA_PAGA_SICOSS')
+
+        return peticion.recordset
+
+    } catch (error) {
+        return []
+    }
+}
 
 
 module.exports = {
@@ -184,4 +202,5 @@ module.exports = {
     ,ConsultaPolizaSICOSS
     ,ConsultaAsientoPolizaBproEmpleadoSICOSS
     ,CalculoPolizaAbiertaSicoss
+    ,InsertaBorraFechaPaga
 }

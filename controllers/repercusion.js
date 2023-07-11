@@ -138,6 +138,21 @@ async function prorrateoBalanza(mes,anio,quincena,dia){
     }
 }
 
+async function rangoPagoSeminuevoComisiones(anio,mes){
+    try{
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('anio',sql.Int, anio)
+        .input('mes',sql.Int, mes)
+        .execute('RANGO_PAGO_SEMINUEVOS_COMISIONES_SP')
+
+        return peticion.recordsets
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 
 module.exports={
     selFechaEjecucion,
@@ -148,5 +163,6 @@ module.exports={
     consultaOCError,
     consultaFechaFaturacion,
     parametrosNotificacion,
-    prorrateoBalanza
+    prorrateoBalanza,
+    rangoPagoSeminuevoComisiones
 }
