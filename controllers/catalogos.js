@@ -65,9 +65,57 @@ async function SicossGrupo(){
     }
 }
 
+async function PeriodosSicoss(){
+    try {
+        
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+                                .execute('SEL_PERIODOS_SICOSS')
+
+        return peticion.recordset
+
+    } catch (error) {
+        console.log(error);
+        return []
+    }
+}
+
+async function TipoNominaSicoss(){
+    try {
+        
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+                                .execute('SEL_TIPO_NOMINA_SICOSS')
+
+        return peticion.recordset
+
+    } catch (error) {
+        console.log(error);
+        return []
+    }
+}
+
+async function RelacionWSFCentralizacion(){
+    try {
+        
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+                                .execute('RELACION_WSF_CENTRALIZACION_COMISIONES')
+
+        return peticion.recordset
+
+    } catch (error) {
+        console.log(error);
+        return []
+    }
+}
+
 module.exports = {
     catalogoConceptoSabana,
     fechasPagas,
     lugarestrabajo,
-    SicossGrupo
+    SicossGrupo,
+    PeriodosSicoss,
+    TipoNominaSicoss,
+    RelacionWSFCentralizacion
 }

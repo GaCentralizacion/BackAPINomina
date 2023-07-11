@@ -96,4 +96,66 @@ router.route('/SicossGrupo').get((req,resp) =>{
 
 })
 
+/**
+ * @swagger
+ * /api/catalogosSICOSS/PeriodosSicoss:
+ *   get:
+ *      description: Catalogo de periodos en sicoss
+ *      tags: [CatalogosSICOSS]
+ *      produces:
+ *          - application/json
+ *      responses:
+ *          '200':
+ *              description: Faltan los comentarios de JC
+ */
+router.route('/PeriodosSicoss').get((req,resp) =>{
+
+    peticion.PeriodosSicoss().then(res =>{
+        resp.status(200).json(res)
+    })
+
+})
+
+/**
+ * @swagger
+ * /api/catalogosSICOSS/TipoNominaSicoss:
+ *   get:
+ *      description: Tipo de nominas en sicoss
+ *      tags: [CatalogosSICOSS]
+ *      produces:
+ *          - application/json
+ *      responses:
+ *          '200':
+ *              description: Faltan los comentarios de JC
+ */
+router.route('/TipoNominaSicoss').get((req,resp) =>{
+
+    peticion.TipoNominaSicoss().then(res =>{
+        resp.status(200).json(res)
+    })
+
+})
+
+/**
+* @swagger
+* /api/catalogosSICOSS/RelacionWSFCentralizacion:
+*   get:
+*      description: Regresa la relacion de de sucursales de websitefinanzas y cat_sucursales
+*      tags: [CatalogosSICOSS]
+*      produces:
+*          - application/json
+*      responses:
+*          '200':
+*              description: Respuesta correcta
+*/
+router.route('/RelacionWSFCentralizacion').get((req,resp) => {
+
+    let mes = req.body.mes
+    let anio = req.body.anio
+
+   peticion.RelacionWSFCentralizacion(anio,mes).then(res =>{
+       resp.status(200).json(res)
+   })
+})
+
 module.exports = router
