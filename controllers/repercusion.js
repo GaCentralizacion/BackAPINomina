@@ -153,6 +153,21 @@ async function rangoPagoSeminuevoComisiones(anio,mes){
     }
 }
 
+async function RangoPagoNuevoComisiones(anio,mes){
+    try{
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('anio',sql.Int, anio)
+        .input('mes',sql.Int, mes)
+        .execute('RANGO_PAGO_NUEVOS_COMISIONES_SP')
+
+        return peticion.recordsets
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 
 module.exports={
     selFechaEjecucion,
@@ -164,5 +179,6 @@ module.exports={
     consultaFechaFaturacion,
     parametrosNotificacion,
     prorrateoBalanza,
-    rangoPagoSeminuevoComisiones
+    rangoPagoSeminuevoComisiones,
+    RangoPagoNuevoComisiones
 }

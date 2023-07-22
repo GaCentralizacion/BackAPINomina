@@ -357,6 +357,39 @@ router.route('/RangoPagoSeminuevoComisiones').post((req,resp) => {
    })
 })
 
+/**
+* @swagger
+* /api/repercusion/RangoPagoNuevoComisiones:
+*   post:
+*      description: Regresa la tabla de rangos para el pago de comisiones en nuevos (RANGO_PAGO_NUEVOS_COMISIONES_SP)
+*      tags: [Repercusion]
+*      produces:
+*          - application/json
+*      parameters:
+*          - name: anio
+*            description:
+*            in: formData
+*            type: number
+*            required: true
+*          - name: mes
+*            description:
+*            in: formData
+*            type: number
+*            required: true
+*      responses:
+*          '200':
+*              description: Respuesta correcta
+*/
+router.route('/RangoPagoNuevoComisiones').post((req,resp) => {
+
+    let mes = req.body.mes
+    let anio = req.body.anio
+
+   peticion.RangoPagoNuevoComisiones(anio,mes).then(res =>{
+       resp.status(200).json(res)
+   })
+})
+
 
 
 module.exports = router
