@@ -165,4 +165,292 @@ const peticion = require('../controllers/comisionesFlotillas')
     })
 })
 
+/**
+ * @swagger
+ * /api/comisionesFlotillas/ConfigMarkDevCenter:
+ *   post:
+ *      description: Muestra la configuracion para los departamentos MARKETING Y DEV CENTER (CONF_MARK_DEV_CENTER_COMISIONES_SP)
+ *      tags: [ComisionesFlotillas]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: mes
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: anio
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: idDepto
+ *            description: 0101 para marketing y 0132 para dev center
+ *            in: formData
+ *            type: string
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: Faltan los comentarios de JC
+ */
+ router.route('/ConfigMarkDevCenter').post((req,resp) => {
+    
+    let mes = req.body.mes
+    let anio = req.body.anio
+    let idDepto = req.body.idDepto
+
+    peticion.ConfigMarkDevCenter(mes,anio,idDepto).then(res =>{
+        resp.status(200).json(res[0])
+    })
+})
+
+/**
+ * @swagger
+ * /api/comisionesFlotillas/AgregaEliminaConfMarkDev:
+ *   post:
+ *      description: agrega o elimina conficuracion para los departamentos MARKETING Y DEV CENTER (AGREGA_ELIMINA_CONFIG_MARK_DEV_COMISIONES)
+ *      tags: [ComisionesFlotillas]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: idDepto
+ *            description:
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: idEmpresa
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: idSucursal
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: anio
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: mes
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: accion
+ *            description: 1. inserta, 0. borra
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description:
+ */
+ router.route('/AgregaEliminaConfMarkDev').post((req,resp) => {
+    
+    let idDepto = req.body.idDepto
+    let idEmpresa = req.body.idEmpresa
+    let idSucursal = req.body.idSucursal
+    let anio = req.body.anio
+    let mes = req.body.mes
+    let accion = req.body.accion
+
+    peticion.AgregaEliminaConfMarkDev(idDepto,idEmpresa,idSucursal,anio,mes,accion).then(res =>{
+        resp.status(200).json(res[0])
+    })
+})
+
+/**
+ * @swagger
+ * /api/comisionesFlotillas/ConfiguracionRangoNuevosComisiones:
+ *   post:
+ *      description: agrega o elimina conficuracion para los departamentos Nuevos (CONFIGURACION_RANGO_NUEVOS_COMISIONES)
+ *      tags: [ComisionesFlotillas]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: mes
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: anio
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: limInferior
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: limSuperior
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: porcentaje
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: accion
+ *            description: 1. inserta, 0. borra
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description:
+ */
+ router.route('/ConfiguracionRangoNuevosComisiones').post((req,resp) => {
+    
+    let mes = req.body.mes
+    let anio = req.body.anio
+    let limInferior = req.body.limInferior
+    let limSuperior = req.body.limSuperior
+    let porcentaje = req.body.porcentaje
+    let accion = req.body.accion
+
+    peticion.ConfiguracionRangoNuevosComisiones(mes,anio,limInferior,limSuperior,porcentaje,accion).then(res =>{
+        resp.status(200).json(res[0])
+    })
+})
+
+/**
+ * @swagger
+ * /api/comisionesFlotillas/ConfiguracionRangoSemiNuevosComisiones:
+ *   post:
+ *      description: agrega o elimina conficuracion para los departamentos seminuevos (CONFIGURACION_RANGO_SEMINUEVOS_COMISIONES)
+ *      tags: [ComisionesFlotillas]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: mes
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: anio
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: limInferior
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: limSuperior
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: monto
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: accion
+ *            description: 1. inserta, 0. borra
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description:
+ */
+ router.route('/ConfiguracionRangoSemiNuevosComisiones').post((req,resp) => {
+    
+    let mes = req.body.mes
+    let anio = req.body.anio
+    let limInferior = req.body.limInferior
+    let limSuperior = req.body.limSuperior
+    let monto = req.body.monto
+    let accion = req.body.accion
+
+    peticion.ConfiguracionRangoSemiNuevosComisiones(mes,anio,limInferior,limSuperior,monto,accion).then(res =>{
+        resp.status(200).json(res[0])
+    })
+})
+
+
+/**
+ * @swagger
+ * /api/comisionesFlotillas/ConfiguracionRangoNuevosComisiones:
+ *   post:
+ *      description: agrega o elimina conficuracion para los departamentos Nuevos (CONFIGURACION_RANGO_NUEVOS_COMISIONES)
+ *      tags: [ComisionesFlotillas]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: mes
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: anio
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: limInferior
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: limSuperior
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: porcentaje
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: accion
+ *            description: 1. inserta, 0. borra
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description:
+ */
+router.route('/ConfiguracionRangoNuevosComisiones').post((req,resp) => {
+    
+    let mes = req.body.mes
+    let anio = req.body.anio
+    let limInferior = req.body.limInferior
+    let limSuperior = req.body.limSuperior
+    let porcentaje = req.body.porcentaje
+    let accion = req.body.accion
+
+    peticion.ConfiguracionRangoNuevosComisiones(mes,anio,limInferior,limSuperior,porcentaje,accion).then(res =>{
+        resp.status(200).json(res[0])
+    })
+})
+
+/**
+ * @swagger
+ * /api/comisionesFlotillas/SucursalesComisiones:
+ *   get:
+ *      description: Regresa la lista de las sucursales en las que calculara la comision de flotillas (SUCURSALES_COMISIONES)
+ *      tags: [ComisionesFlotillas]
+ *      produces:
+ *          - application/json
+ *      responses:
+ *          '200':
+ *              description:
+ */
+ router.route('/SucursalesComisiones').get((req,resp) => {
+
+    peticion.SucursalesComisiones().then(res =>{
+        resp.status(200).json(res)
+    })
+})
+
+
 module.exports = router
