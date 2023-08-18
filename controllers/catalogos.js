@@ -110,6 +110,19 @@ async function RelacionWSFCentralizacion(){
     }
 }
 
+async function lugarestrabajoUsuario(idUsuario){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+                                .input('idUsuario',sql.Int,idUsuario)
+                                .execute('LUGARES_TRABAJO_SICOSS_USUARIO')
+
+        return peticion.recordsets
+    } catch (error) {
+        return []
+    }
+}
+
 module.exports = {
     catalogoConceptoSabana,
     fechasPagas,
@@ -117,5 +130,6 @@ module.exports = {
     SicossGrupo,
     PeriodosSicoss,
     TipoNominaSicoss,
-    RelacionWSFCentralizacion
+    RelacionWSFCentralizacion,
+    lugarestrabajoUsuario
 }

@@ -21,7 +21,7 @@ async function vistaPreviaPoliza(anio,mes,periodoId,periodo,centroId,tipoNomina)
     }
 }
 
-async function CalculoPolizaSicoss(mes, anio, periodoId, periodo, tipoNomina, lugarTrabajo){
+async function CalculoPolizaSicoss(mes, anio, periodoId, periodo, tipoNomina, lugarTrabajo,inserta){
     try {
         
         let pool = await sql.connect(config)
@@ -32,6 +32,7 @@ async function CalculoPolizaSicoss(mes, anio, periodoId, periodo, tipoNomina, lu
                                 .input('periodo', sql.Int, periodo)
                                 .input('tipoNomina',sql.Int, tipoNomina)
                                 .input('Lw', sql.Int, lugarTrabajo)
+                                .input('inserta', sql.Int, inserta)
                                 .execute('CALCULO_POLIZA_SICOSS')
 
         return peticion.recordsets
