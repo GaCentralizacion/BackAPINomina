@@ -179,6 +179,53 @@ async function SucursalesComisiones (){
     }
 }
 
+async function CatEmpresasComisiones (){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request().execute('CAT_EMPRESAS_COMISIONES')
+
+        return peticion.recordset
+    } catch (error) {
+        console.log(error)
+        return []
+    }
+}
+
+async function CalculoGastoComisionesFlotillas (idSucursalWSF, anio, mes, detalle){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input("idSucursalWSF",sql.Int,idSucursalWSF)
+        .input("anio",sql.Int,anio)
+        .input("mes",sql.Int,mes)
+        .input("detalle",sql.Int,detalle)
+        .execute('CALCULO_GASTO_COMISIONES_FLOTILLAS')
+
+        return peticion.recordsets
+    } catch (error) {
+        console.log(error)
+        return []
+    }
+}
+
+async function CalculoDetalleComisionesFlotillas (base,ip,nombreDepto,fechaInicio,fechafin,totalGasto){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input("base",sql.NVarChar(150),base)
+        .input("ip",sql.NVarChar(100),ip)
+        .input("nombreDepto",sql.NVarChar(10),nombreDepto)
+        .input("fechaInicio",sql.VarChar(11),fechaInicio)
+        .input("fechafin",sql.VarChar(11),fechafin)
+        .input("totalGasto",sql.Decimal(18,5),totalGasto)
+        .execute('CALCULO_FLOTILLAS_COMISIONES')
+
+        return peticion.recordsets
+    } catch (error) {
+        console.log(error)
+        return []
+    }
+}
 
 module.exports={
     InfoDepartamentosComisiones,
@@ -190,5 +237,8 @@ module.exports={
     AgregaEliminaConfMarkDev,
     ConfiguracionRangoNuevosComisiones,
     ConfiguracionRangoSemiNuevosComisiones,
-    SucursalesComisiones
+    SucursalesComisiones,
+    CatEmpresasComisiones,
+    CalculoGastoComisionesFlotillas,
+    CalculoDetalleComisionesFlotillas
 }

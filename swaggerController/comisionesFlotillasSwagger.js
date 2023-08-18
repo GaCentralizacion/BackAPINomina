@@ -452,5 +452,126 @@ router.route('/ConfiguracionRangoNuevosComisiones').post((req,resp) => {
     })
 })
 
+/**
+ * @swagger
+ * /api/comisionesFlotillas/CatEmpresasComisiones:
+ *   get:
+ *      description: Regresa la lista de las empresas en las que calculara la comision de flotillas (CAT_EMPRESAS_COMISIONES)
+ *      tags: [ComisionesFlotillas]
+ *      produces:
+ *          - application/json
+ *      responses:
+ *          '200':
+ *              description:
+ */
+ router.route('/CatEmpresasComisiones').get((req,resp) => {
+
+    peticion.CatEmpresasComisiones().then(res =>{
+        resp.status(200).json(res)
+    })
+})
+
+/**
+ * @swagger
+ * /api/comisionesFlotillas/CalculoGastoComisionesFlotillas:
+ *   post:
+ *      description: Obtiene el mmonto del gasto usado para el calculo de pago de comisiones de flotillas (CALCULO_GASTO_COMISIONES_FLOTILLAS)
+ *      tags: [ComisionesFlotillas]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: idSucursalWSF
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: anio
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: mes
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: detalle
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description:
+ */
+router.route('/CalculoGastoComisionesFlotillas').post((req,resp) => {
+    
+    let idSucursalWSF = req.body.idSucursalWSF
+    let anio = req.body.anio
+    let mes = req.body.mes
+    let detalle = req.body.detalle
+
+    peticion.CalculoGastoComisionesFlotillas(idSucursalWSF,anio,mes,detalle).then(res =>{
+        resp.status(200).json(res)
+    })
+})
+
+/**
+ * @swagger
+ * /api/comisionesFlotillas/CalculoDetalleComisionesFlotillas:
+ *   post:
+ *      description: Obtiene los calculas base para obtener la comision (CALCULO_FLOTILLAS_COMISIONES)
+ *      tags: [ComisionesFlotillas]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: base
+ *            description:
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: ip
+ *            description:
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: nombreDepto
+ *            description:
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: fechaInicio
+ *            description:
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: fechafin
+ *            description:
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: totalGasto
+ *            description:
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description:
+ */
+router.route('/CalculoDetalleComisionesFlotillas').post((req,resp) => {
+    
+    let base = req.body.base
+    let ip = req.body.ip
+    let nombreDepto = req.body.nombreDepto
+    let fechaInicio = req.body.fechaInicio
+    let fechafin = req.body.fechafin
+    let totalGasto = req.body.totalGasto
+
+    peticion.CalculoDetalleComisionesFlotillas(base,ip,nombreDepto,fechaInicio,fechafin,totalGasto).then(res =>{
+        resp.status(200).json(res)
+    })
+})
+
 
 module.exports = router

@@ -98,6 +98,10 @@ const peticion = require('../controllers/nominaSicoss')
  *            description: lugar de trabajo
  *            in: formData
  *            type: number
+ *          - name: inserta
+ *            description: lugar de trabajo
+ *            in: formData
+ *            type: number
  *            required: true
  *      responses:
  *          '200':
@@ -111,8 +115,9 @@ router.route('/CalculoPolizaSicoss').post((req,resp) =>{
     let periodo = req.body.periodo
     let tipoNomina = req.body.tipoNomina
     let lugarTrabajo = req.body.lugarTrabajo
+    let inserta = req.body.inserta
 
-    peticion.CalculoPolizaSicoss(mes,anio,periodoId,periodo,tipoNomina,lugarTrabajo).then(res =>{
+    peticion.CalculoPolizaSicoss(mes,anio,periodoId,periodo,tipoNomina,lugarTrabajo,inserta).then(res =>{
         resp.status(200).json(res[0])
     })
 

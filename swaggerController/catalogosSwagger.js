@@ -158,4 +158,32 @@ router.route('/RelacionWSFCentralizacion').get((req,resp) => {
    })
 })
 
+/**
+ * @swagger
+ * /api/catalogosSICOSS/LugaresTrabajoUsuario:
+ *   post:
+ *      description: Regeresa la lista de sucursales a las que tiene accesos el usuario, basado en las sucursales de ope_organigrama (LUGARES_TRABAJO_SICOSS_USUARIO)
+ *      tags: [CatalogosSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: idUsuario
+ *            description: idUsuario de catUsuarios en el 29
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: Lista de empresas permitidas
+ */
+router.route('/LugaresTrabajoUsuario').post((req,resp) =>{
+
+    let idUsuario = req.body.idUsuario
+
+    peticion.lugarestrabajoUsuario(idUsuario).then(res =>{
+        resp.status(200).json(res[0])
+    })
+
+})
+
 module.exports = router

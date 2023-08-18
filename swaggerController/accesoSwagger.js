@@ -63,7 +63,7 @@ const peticion = require('../controllers/acceso')
  * @swagger
  * /api/acceso/MenuNomina:
  *   post:
- *      description: regresa el acceso del usuario logeado desde el panel de aplicaciones, sp invocado SEL_EMPLEADO_SP
+ *      description: regresa el acceso del usuario logeado desde el panel de aplicaciones, sp invocado SEL_MENU_NOMINA
  *      tags: [Acceso]
  *      produces:
  *          - application/json
@@ -89,7 +89,7 @@ const peticion = require('../controllers/acceso')
  * @swagger
  * /api/acceso/MenuNominaDetalle:
  *   post:
- *      description: regresa el acceso del usuario logeado desde el panel de aplicaciones, sp invocado SEL_EMPLEADO_SP
+ *      description: regresa el acceso del usuario logeado desde el panel de aplicaciones, sp invocado SEL_MENU_NOMINA_DETALLE
  *      tags: [Acceso]
  *      produces:
  *          - application/json
