@@ -11,7 +11,7 @@ class Server{
         
         this.app = express()
         
-        this.port = process.env.port || 8090
+        this.port = process.env.port || 8091
 
         this.middlewares()
 
@@ -32,30 +32,18 @@ class Server{
             swaggerDefinition:{
                 info:{
                     version:"1.0.0",
-                    title:'api rest',
-                    description:'Api para el proyecto de nomina',
+                    title:'api para uso de los ejecutables',
+                    description:'Api ejecutables',
                     contact:{
                         name:'Roberto Almanza'
                     },
                     servers:[
-                        "http:localhost:8090"
+                        "http:localhost:8091"
                     ]
                 }
             },
             apis:[
-                './swaggerController/nominaSwagger.js',
-                './swaggerController/prorrateoFacturaSwagger.js',
-                './swaggerController/polizasNominaSwagger.js',
-                './swaggerController/comisionesFlotillasSwagger.js',
-                './swaggerController/departamentosSwagger.js',
-                './swaggerController/reporteBalanzaSwagger.js',
-                './swaggerController/porcentajeSucursalSwagger.js',
-                './swaggerController/accesoSwagger.js',
-                './swaggerController/catalogosSwagger.js',
-                './swaggerController/nominaSicossSwagger.js',
-                './swaggerController/prorrateoAgenciasSwagger.js',
-                './swaggerController/repercusionSwagger.js',
-                './swaggerController/mailerSwagger.js',
+                './swaggerController/reasignaTicketSwagger.js',
             ]
         }
         const swaggerDocs = swaggerJsDoc(swaggerOptions)
@@ -63,19 +51,7 @@ class Server{
     }
 
     routes(){
-        this.app.use('/api/nomina', require('../swaggerController/nominaSwagger'))
-        this.app.use('/api/prorrateoFacturas', require('../swaggerController/prorrateoFacturaSwagger'))
-        this.app.use('/api/polizasNomina', require('../swaggerController/polizasNominaSwagger'))
-        this.app.use('/api/comisionesFlotillas', require('../swaggerController/comisionesFlotillasSwagger'))
-        this.app.use('/api/departamentos', require('../swaggerController/departamentosSwagger'))
-        this.app.use('/api/porcentajeSucursal', require('../swaggerController/porcentajeSucursalSwagger'))
-        this.app.use('/api/reporteBalanza', require('../swaggerController/reporteBalanzaSwagger'))
-        this.app.use('/api/acceso', require('../swaggerController/accesoSwagger'))
-        this.app.use('/api/catalogosSICOSS', require('../swaggerController/catalogosSwagger'))
-        this.app.use('/api/nominaSICOSS', require('../swaggerController/nominaSicossSwagger'))
-        this.app.use('/api/prorrateoAgencias', require('../swaggerController/prorrateoAgenciasSwagger'))
-        this.app.use('/api/repercusion', require('../swaggerController/repercusionSwagger'))
-        this.app.use('/api/mailer', require('../swaggerController/mailerSwagger'))
+        this.app.use('/api/reasignaTicket', require('../swaggerController/reasignaTicketSwagger'))
     }
 
     listen(){
