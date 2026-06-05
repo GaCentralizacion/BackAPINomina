@@ -11,7 +11,7 @@ class Server{
         
         this.app = express()
         
-        this.port = process.env.port || 8090
+        this.port = process.env.port || 8091
 
         this.middlewares()
 
@@ -35,13 +35,13 @@ class Server{
             swaggerDefinition:{
                 info:{
                     version:"1.0.0",
-                    title:'api rest',
-                    description:'Api para el proyecto de nomina',
+                    title:'api para uso de los ejecutables',
+                    description:'Api ejecutables',
                     contact:{
                         name:'Roberto Almanza'
                     },
                     servers:[
-                        "http:localhost:8090"
+                        "http:localhost:8091"
                     ]
                 }
             },
