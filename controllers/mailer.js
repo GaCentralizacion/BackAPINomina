@@ -11,19 +11,19 @@ function sendMail(asunto, email, body){
                 secure: false,           
                 auth: {
                     user: 'reportes.bpro1@grupoandrade.com',
-                    pass: '#h&EdV4R'
+                    pass: 'obio mryc hnwe zpfp'
                 },
                 tls: { rejectUnauthorized: false }
-           });
+        });
     
             var message = {
                 from: "reportes.bpro1@grupoandrade.com",
                 to: email,
                 subject: asunto,
                 html:`<div style="width: 310px; height: 140px;">
-                       <center>
-                        <img style="width: 80%;" src="https://cdn.discordapp.com/attachments/588785789438001183/613027505137516599/logoA.png" alt="GrupoAndrade" />
-                       </center>
+                        <center>
+                            <img style="width: 80%;" src="https://cdn.discordapp.com/attachments/588785789438001183/613027505137516599/logoA.png" alt="GrupoAndrade" />
+                        </center>
                     </div>
                     <div> ${body} </div>`,
                 headers:{

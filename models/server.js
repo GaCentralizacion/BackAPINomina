@@ -16,6 +16,8 @@ class Server{
         this.middlewares()
 
         this.routes()
+
+        this.errorHandler()
     }
 
     
@@ -23,9 +25,10 @@ class Server{
         //CORS
         this.app.use(cors())
 
-        //BODY-PARSE
-        this.app.use(bodyParser.urlencoded({extended:true}))
-        this.app.use(bodyParser.json())
+        //BODY-PARSER
+        const bodyLimit = process.env.BODY_LIMIT || '60mb'
+        this.app.use(bodyParser.urlencoded({ extended: true, limit: bodyLimit }))
+        this.app.use(bodyParser.json({ limit: bodyLimit }))
 
         //SWAGGER
         const swaggerOptions = {
@@ -56,6 +59,8 @@ class Server{
                 './swaggerController/prorrateoAgenciasSwagger.js',
                 './swaggerController/repercusionSwagger.js',
                 './swaggerController/mailerSwagger.js',
+                './swaggerController/prorrateoSwagger.js',
+                './swaggerController/conciliacionCPASwagger.js'
             ]
         }
         const swaggerDocs = swaggerJsDoc(swaggerOptions)
@@ -76,6 +81,30 @@ class Server{
         this.app.use('/api/prorrateoAgencias', require('../swaggerController/prorrateoAgenciasSwagger'))
         this.app.use('/api/repercusion', require('../swaggerController/repercusionSwagger'))
         this.app.use('/api/mailer', require('../swaggerController/mailerSwagger'))
+        this.app.use('/api/prorrateo', require('../swaggerController/prorrateoSwagger')),
+        this.app.use('/api/conciliacion', require('../swaggerController/conciliacionCPASwagger'))
+    }
+
+    errorHandler(){
+        this.app.use((err, req, res, next) => {
+            if (err && err.type === 'entity.too.large') {
+                return res.status(413).json({
+                    ok: false,
+                    message: 'Payload demasiado grande',
+                    limit: process.env.BODY_LIMIT || '60mb'
+                })
+            }
+
+            if (err) {
+                console.error('Error no controlado:', err.message)
+                return res.status(err.status || 500).json({
+                    ok: false,
+                    message: 'Error interno del servidor'
+                })
+            }
+
+            next()
+        })
     }
 
     listen(){

@@ -315,7 +315,7 @@ router.route('/ProrrateoBalanza').post((req,resp) => {
 
     let mes = req.body.mes
     let anio = req.body.anio
-    let quincena = req.body.quincena === 1 ? 23 : 26
+    let quincena = Number(req.body.quincena) === 1 || Number(req.body.quincena) === 23 ? 23 : 26
     let dia = req.body.dia
 
    peticion.prorrateoBalanza(mes,anio,quincena,dia).then(res =>{
@@ -391,5 +391,199 @@ router.route('/RangoPagoNuevoComisiones').post((req,resp) => {
 })
 
 
+/**
+* @swagger
+* /api/repercusion/InsertaOrdenCompraCentralizado:
+*   post:
+*      description: Inserta los registros en tablas intermedias para la generacion de OC centralizados (INS_OC_CENTRALIZADOS_REPERCUSION)
+*      tags: [Repercusion]
+*      produces:
+*          - application/json
+*      parameters:
+*          - name: anio
+*            description: anio
+*            in: formData
+*            type: number
+*            required: true
+*          - name: mes
+*            description: mes
+*            in: formData
+*            type: number
+*            required: true
+*          - name: idDetalle
+*            description: Se refiere a la quincena, 23 es 1ra quincena, 26 2da quincena
+*            in: formData
+*            type: number
+*            required: true
+*          - name: inserta
+*            description: Es para indicarle al SP si debe o no ejecutar el proceso de creaciones de OC
+*            in: formData
+*            type: number
+*            required: true
+*      responses:
+*          '200':
+*              description: Respuesta correcta
+*/
+router.route('/InsertaOrdenCompraCentralizado').post((req,resp) => {
+
+    let anio = req.body.anio
+    let mes = req.body.mes
+    let idDetalle = req.body.idDetalle
+    let inserta = req.body.inserta
+
+   peticion.InsertaOrdenCompraCentralizado(mes,anio,idDetalle,inserta).then(res =>{
+       resp.status(200).json(res)
+   })
+})
+
+/**
+* @swagger
+* /api/repercusion/InsertaOrdenCompraNoCentralizado:
+*   post:
+*      description: Inserta los registros en tablas intermedias para la generacion de OC centralizados (REPORTE_BALANZA_REPERCUSION_NO_CENTRALIZADO)
+*      tags: [Repercusion]
+*      produces:
+*          - application/json
+*      parameters:
+*          - name: anio
+*            description: anio
+*            in: formData
+*            type: number
+*            required: true
+*          - name: mes
+*            description: mes
+*            in: formData
+*            type: number
+*            required: true
+*          - name: quincena
+*            description: 1.- 1ra quincena, 2.- 2da quincena
+*            in: formData
+*            type: number
+*            required: true
+*          - name: inserta
+*            description: Es para indicarle al SP si debe o no ejecutar el proceso de creaciones de OC
+*            in: formData
+*            type: number
+*            required: true
+*      responses:
+*          '200':
+*              description: Respuesta correcta
+*/
+router.route('/InsertaOrdenCompraNoCentralizado').post((req,resp) => {
+
+    let anio = req.body.anio
+    let mes = req.body.mes
+    let quincena = req.body.quincena
+    let inserta = req.body.inserta
+    let idpagadora = '001'
+
+   peticion.InsertaOrdenCompraNoCentralizado(mes,anio,idpagadora,quincena,inserta).then(res =>{
+       resp.status(200).json(res)
+   })
+})
+
+/**
+* @swagger
+* /api/repercusion/InsertaSolicitudFacturacion:
+*   post:
+*      description: Inserta los registros en tablas intermedias para la generacion de las facturas (INS_REGISTROS_FACTURACION_REPERCUSION)
+*      tags: [Repercusion]
+*      produces:
+*          - application/json
+*      parameters:
+*          - name: anio
+*            description: anio
+*            in: formData
+*            type: number
+*            required: true
+*          - name: mes
+*            description: mes
+*            in: formData
+*            type: number
+*            required: true
+*          - name: quincena
+*            description: 1.- 1ra quincena, 2.- 2da quincena
+*            in: formData
+*            type: number
+*            required: true
+*          - name: idUsuario
+*            description: Usuario que solicita la generacion de la facturacion
+*            in: formData
+*            type: number
+*            required: true
+*      responses:
+*          '200':
+*              description: Respuesta correcta
+*/
+router.route('/InsertaSolicitudFacturacion').post((req,resp) => {
+
+    let anio = req.body.anio
+    let mes = req.body.mes
+    let quincena = req.body.quincena
+    let idUsuario = req.body.idUsuario
+
+   peticion.InsertaSolicitudFacturacion(mes,anio,quincena,idUsuario).then(res =>{
+       resp.status(200).json(res)
+   })
+})
+
+/**
+* @swagger
+* /api/repercusion/AuthApi:
+*   post:
+*      description: Busca si ya se hizo la repercucion de gasto en el anio y mes (SEL_FECHA_REPERCUSION)
+*      tags: [Repercusion]
+*      produces:
+*          - application/json
+*      responses:
+*          '200':
+*              description: Respuesta correcta
+*/
+router.route('/AuthApi').post((req,resp) => {
+
+    var self = this;
+    var ajax = require('rxjs/ajax');
+    const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+    ajax.ajax({  
+        createXHR,
+        url: 'http://192.168.20.89:9052/api/login/auth',
+        crossDomain: true,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Headers':'*'
+          },
+        body: {
+            "dealerId": "1000",
+            "apiKey":"24779r0j-1802-2010-06ag-201f768348a0",
+            "apiSecret":"xVgUwolpX8qQ75TF5Ionny6iz5vu+LbO9gm9qxTsR9nvYfJ0N8y5Bfi7L2EI2AxS6PTbNnCaGfLs+7u69UdJtODCeBA+ZJpc"
+          }
+    })
+    .subscribe( async (res) =>  {
+        //console.log(res)
+        resp.status(200).json(res.response)
+    }
+    ,error => {
+        console.log(error);
+        // self.view.expositor(res, {
+        //     result: {
+        //         Token:'Error al generar el token de api',
+        //         Error:{
+        //             mensajeError:'Error al generar el token de api',
+        //             apiKey: "24779r0j-1802-2010-06ag-201f768348tg",
+        //             apiSecret: "xVgUwolpX8qQ75TF5Ionny6iz5vu+LbO9gm9qxTsR9nvYfJ0N8y5Bfi7L2EI2AxS6PTbNnCaGfLs+7u69UdJtODCeBO+ZJpc"
+        //         }
+        //     }
+        // });
+    }
+    )
+
+    function createXHR() {
+        return new XMLHttpRequest();
+       }
+  
+})
 
 module.exports = router

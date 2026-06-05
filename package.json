@@ -17,7 +17,9 @@
     "mssql": "^8.1.2",
     "nodemailer": "^6.9.3",
     "nodemon": "^2.0.19",
+    "rxjs": "^6.5.5",
     "swagger-jsdoc": "^6.2.4",
-    "swagger-ui-express": "^4.5.0"
+    "swagger-ui-express": "^4.5.0",
+    "xmlhttprequest": "^1.8.0"
   }
 }

@@ -1,0 +1,114 @@
+[33m[nodemon] 2.0.19[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] or send SIGHUP to 22748 to restart[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node api.js`[39m
+[33m[nodemon] forking[39m
+[33m[nodemon] child pid: 18944[39m
+[33m[nodemon] watching 41 files[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+iniciando
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[33m[nodemon] files triggering change check: api.js[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[33m[nodemon] files triggering change check: nodemon_test_err.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] api.js[39m
+
+[32m[nodemon] starting `node api.js`[39m
+[33m[nodemon] forking[39m
+[33m[nodemon] child pid: 1280[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+iniciando
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[33m[nodemon] files triggering change check: api.js[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[33m[nodemon] files triggering change check: nodemon_test_err.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] api.js[39m
+
+[32m[nodemon] starting `node api.js`[39m
+[33m[nodemon] forking[39m
+[33m[nodemon] child pid: 7568[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[33m[nodemon] files triggering change check: nodemon_test_err.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[33m[nodemon] files triggering change check: api.js[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] api.js[39m
+
+[32m[nodemon] starting `node api.js`[39m
+[33m[nodemon] forking[39m
+[33m[nodemon] child pid: 8132[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+iniciando
+[33m[nodemon] files triggering change check: api.js[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] api.js[39m
+
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[32m[nodemon] starting `node api.js`[39m
+[33m[nodemon] forking[39m
+[33m[nodemon] child pid: 6360[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+iniciando
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[33m[nodemon] files triggering change check: nodemon_test_err.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[33m[nodemon] files triggering change check: nodemon_test_out.log[39m
+[33m[nodemon] matched rule: **\*.*[39m
+[33m[nodemon] changes after filters (before/after): 1/0[39m
+[32m[nodemon] restarting child process[39m
+[32m[nodemon] starting `node api.js`[39m
+[33m[nodemon] forking[39m
+[33m[nodemon] child pid: 23636[39m
+iniciando
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m

@@ -271,6 +271,8 @@ async function ConsultaAsientoPolizaBpro(idSucursal, fechaPaga, tipo){
 }
 
 
+
+
 module.exports={
     fechasPagas,
     ObtieneAsientoContablePaga,
@@ -285,5 +287,6 @@ module.exports={
     ConsultaSabanaMeta,
     GruposMeta,
     CalculoPolizaNomina,
-    ConsultaAsientoPolizaBpro
+    ConsultaAsientoPolizaBpro,
+
 }

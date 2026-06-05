@@ -46,18 +46,18 @@ async function SicossGrupo(){
         let pool = await sql.connect(config)
 
         let categorias = await pool.request().query(`
-
-        SELECT gc.grupoId as id_grupo
-        , gc.nombreGrupo as nombre_grupo
-        , mas.nombreCampo
-        , mas.alias
-        FROM GRUPO_CONCEPTOS_SICOSS gc
-        JOIN GRUPO_CONCEPTOS_DETALLE_SICOSS gcd
-          ON gc.grupoId = gcd.grupoId
-        JOIN MAPA_ACUMULADOS_SABANA_SICOSS mas
-        ON gcd.Concepto_ID = mas.idRelacion
-        where gc.estatus = 1
-        ORDER BY gc.grupoId, gcd.orden`)
+            SELECT gc.grupoId as id_grupo
+            , gc.nombreGrupo as nombre_grupo
+            , mas.nombreCampo
+            , mas.alias
+            ,gc.cuenta
+            FROM GRUPO_CONCEPTOS_SICOSS gc
+            JOIN GRUPO_CONCEPTOS_DETALLE_SICOSS gcd
+            ON gc.grupoId = gcd.grupoId
+            JOIN MAPA_ACUMULADOS_SABANA_SICOSS mas
+            ON gcd.Concepto_ID = mas.idRelacion
+            where gc.estatus = 1
+            ORDER BY gc.grupoId, gcd.orden`)
 
         return categorias.recordsets
     } catch (error) {

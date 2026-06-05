@@ -540,4 +540,219 @@ router.route('/InsertaBorraFechaPaga').post((req,resp) =>{
 
 })
 
+/**
+ * @swagger
+ * /api/nominaSICOSS/ObtieneProrrateoNomina:
+ *   get:
+ *      description: Obtiene la lista de empleados prorrateados activos (EMPLEADOS_PRORRATEADOS_SICOSS)
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      responses:
+ *          '200':
+ *              description: empleados prorrateados activos
+ */
+router.route('/ObtieneProrrateoNomina').get((req,resp) =>{
+
+    peticion.EmpleadosProrrateadosSicoss().then(res =>{
+        resp.status(200).json(res)
+    })
+
+})
+
+/**
+ * @swagger
+ * /api/nominaSICOSS/ObtieneProrrateoNominaDetalle:
+ *   post:
+ *      description: Obtiene la lista de los departamentos en los que se encuentra prorrateado (EMPLEADOS_PRORRATEADOS_SICOSS)
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: idEmpleado
+ *            description: numero de empleado de RH
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: empleados prorrateados activos
+ */
+router.route('/ObtieneProrrateoNominaDetalle').post((req,resp) =>{
+
+    let idEmpleado = req.body.idEmpleado
+
+    peticion.EmpleadosProrrateadosDetalleSicoss(idEmpleado).then(res =>{
+        resp.status(200).json(res)
+    })
+
+})
+
+/**
+ * @swagger
+ * /api/nominaSICOSS/DepartamentoSicoss:
+ *   post:
+ *      description: Lista de los depatyamentos de sicoss de acuerdo al lugar de trabajo(EMPLEADOS_PRORRATEADOS_SICOSS)
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: centroId
+ *            description: Centro de trabajo
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: departamentos de sicoss
+ */
+router.route('/DepartamentoSicoss').post((req,resp) =>{
+
+    let centroId = req.body.centroId
+
+    peticion.DepartamentosSicoss(centroId).then(res =>{
+        resp.status(200).json(res)
+    })
+
+})
+
+/**
+ * @swagger
+ * /api/nominaSICOSS/InsertaProrrateoSicoss:
+ *   post:
+ *      description: Inserta prorrateo de nomina (EMPLEADOS_PRORRATEADOS_SICOSS)
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: idRh
+ *            description: id rh
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: idDepto
+ *            description: idepto sicoss
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: porcentaje
+ *            description: porcentaje
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: departamentos de sicoss
+ */
+router.route('/InsertaProrrateoSicoss').post((req,resp) =>{
+
+    let idRh = req.body.idRh
+    let idDepto = req.body.idDepto
+    let porcentaje = req.body.porcentaje
+
+    peticion.GUARDA_PRORRATEO_NOMINA_SICOSS(idRh,idDepto,porcentaje).then(res =>{
+        resp.status(200).json(res)
+    })
+
+})
+
+/**
+ * @swagger
+ * /api/nominaSICOSS/EliminaProrrateo:
+ *   post:
+ *      description: Borrado logico del prorrateo de nomina(ELIMINA_PRORRATEO_NOMINA_SICOSS)
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: idRh
+ *            description: id rh
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: idDepto
+ *            description: idepto sicoss
+ *            in: formData
+ *            type: number
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: elimina prorrateo
+ */
+router.route('/EliminaProrrateo').post((req,resp) =>{
+
+    let idRh = req.body.idRh
+    let idDepto = req.body.idDepto
+
+    peticion.EliminaProrrateo(idRh,idDepto).then(res =>{
+        resp.status(200).json(res)
+    })
+
+})
+
+/**
+ * @swagger
+ * /api/nominaSICOSS/ConciliaSicossVsBpro:
+ *   post:
+ *      description: Conciliación entre SICOSS y BPRO
+ *      tags: [NominaSICOSS]
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - name: anio
+ *            description: año de la poliza
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: mes
+ *            description: mes de la poliza
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: periodoId
+ *            description: 1. semanal, 2. quincenal,etc, catálogo de sicoss
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: periodo
+ *            description: numero de semana o quincena
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: tipoNomina
+ *            description: 1 Normal, 2.Finiquitos, 4. Aguinaldo, 5. PTU, 6. Vales despensa catálogo sicoss
+ *            in: formData
+ *            type: number
+ *            required: true
+ *          - name: empresas
+ *            description: lista de empresas separadas por coma, ejemplo 1,2,3, etc, catálogo cat_empresas
+ *            in: formData
+ *            type: string
+ *            required: true
+ *          - name: sucursales
+ *            description: id del centro de trabajo separados por coma, ejemplo 1,2,3, etc, catálogo Centros_sicoss
+ *            in: formData
+ *            type: string
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: Conciliación entre SICOSS y BPRO
+ */
+router.route('/ConciliaSicossVsBpro').post((req,resp) =>{
+
+    let anio = req.body.anio
+    let mes = req.body.mes
+    let periodoId = req.body.periodoId
+    let periodo = req.body.periodo
+    let tipoNomina = req.body.tipoNomina
+    let empresas = req.body.empresas
+    let sucursales = req.body.sucursales
+
+    peticion.conciliaSicossVsBpro(anio,mes,periodoId,periodo,tipoNomina,empresas,sucursales).then(res =>{
+        resp.status(200).json(res)
+    })
+
+})
+
+
 module.exports = router

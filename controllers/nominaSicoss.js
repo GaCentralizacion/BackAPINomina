@@ -64,7 +64,7 @@ async function GruposMetaSICOSS(){
         , mas.alias
         FROM GRUPO_CONCEPTOS_SICOSS gc
         JOIN GRUPO_CONCEPTOS_DETALLE_SICOSS gcd
-          ON gc.grupoId = gcd.grupoId
+            ON gc.grupoId = gcd.grupoId
         JOIN MAPA_ACUMULADOS_SABANA_SICOSS mas
         ON gcd.Concepto_ID = mas.idRelacion
         where gc.estatus = 1
@@ -193,6 +193,116 @@ async function InsertaBorraFechaPaga(periodoId,periodo,tipoNomina,fechInicio,fec
     }
 }
 
+async function EmpleadosProrrateadosSicoss(){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .execute('EMPLEADOS_PRORRATEADOS_SICOSS')
+
+        let resultado = peticion.recordset
+
+        await pool.close()
+        return resultado
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function EmpleadosProrrateadosDetalleSicoss(idEmpleado){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('idEmpleado', sql.Int, idEmpleado)
+        .execute('EMPLEADOS_PRORRATEADOS_DETALLE_SICOSS')
+
+        let resultado = peticion.recordset
+
+        await pool.close()
+        return resultado
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function DepartamentosSicoss(centroId){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('Centro_ID', sql.Int, centroId)
+        .execute('DEPARTAMENTOS_SICOSS')
+
+        let resultado = peticion.recordset
+
+        await pool.close()
+        return resultado
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function GUARDA_PRORRATEO_NOMINA_SICOSS(idRh, idDepto, porcentaje){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('idRh', sql.Int, idRh)
+        .input('idDepto', sql.VarChar(10), idDepto)
+        .input('porcentaje', sql.Decimal(18,2), porcentaje)
+        .execute('GUARDA_PRORRATEO_NOMINA_SICOSS')
+
+        let resultado = peticion.recordset
+
+        await pool.close()
+        return resultado
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function EliminaProrrateo(idRh, idDepto){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('idRH', sql.Int, idRh)
+        .input('idDepto', sql.VarChar(10), idDepto)
+        .execute('ELIMINA_PRORRATEO_NOMINA_SICOSS')
+
+        let resultado = peticion.recordset
+
+        await pool.close()
+        return resultado
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function conciliaSicossVsBpro(anio,mes,periodoId,periodo,tipoNomina,empresas,sucursales){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('anio', sql.Int, anio)
+        .input('mes', sql.Int, mes)
+        .input('periodoId', sql.Int, periodoId)
+        .input('periodo', sql.Int, periodo)
+        .input('tipoNomina', sql.Int, tipoNomina)
+        .input('empresas', sql.VarChar(sql.Max), empresas)
+        .input('sucursales', sql.VarChar(sql.Max), sucursales)
+        .execute('CONSILIA_POLIZAS_SICOSS')
+
+        let resultado = peticion.recordsets
+
+        await pool.close()
+        return resultado
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 
 module.exports = {
     vistaPreviaPoliza
@@ -204,4 +314,10 @@ module.exports = {
     ,ConsultaAsientoPolizaBproEmpleadoSICOSS
     ,CalculoPolizaAbiertaSicoss
     ,InsertaBorraFechaPaga
+    ,EmpleadosProrrateadosSicoss
+    ,EmpleadosProrrateadosDetalleSicoss
+    ,DepartamentosSicoss
+    ,GUARDA_PRORRATEO_NOMINA_SICOSS
+    ,EliminaProrrateo
+    ,conciliaSicossVsBpro
 }

@@ -168,6 +168,55 @@ async function RangoPagoNuevoComisiones(anio,mes){
     }
 }
 
+async function InsertaOrdenCompraCentralizado(mes, anio, idDetalle,inserta){
+    try{
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('mes', sql.Int,mes )
+        .input('anio', sql.Int,anio )
+        .input('idDetalle', sql.Int,idDetalle )
+        .input('inserta', sql.Int,inserta )
+        .execute('INS_OC_CENTRALIZADOS_REPERCUSION')
+        return peticion.recordsets
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+async function InsertaOrdenCompraNoCentralizado(mes, anio, idpagadora ,quincena,inserta){
+    try{
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('mes', sql.Int,mes )
+        .input('anio', sql.Int,anio )
+        .input('idpagadora', sql.VarChar(3),idpagadora )
+        .input('quincena', sql.Int,quincena )
+        .input('inserta', sql.Int,inserta )
+        .execute('REPORTE_BALANZA_REPERCUSION_NO_CENTRALIZADO')
+        return peticion.recordsets
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+async function InsertaSolicitudFacturacion(mes, anio,quincena,idUsuario){
+    try {
+        let pool = await sql.connect(config)
+        let peticion = await pool.request()
+        .input('mes',sql.Int,mes)
+        .input('anio',sql.Int, anio)
+        .input('quincena',sql.Int,quincena)
+        .input('idUsuario',sql.Int,idUsuario)
+        .execute('INS_REGISTROS_FACTURACION_REPERCUSION')
+        return peticion.recordsets
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 module.exports={
     selFechaEjecucion,
@@ -180,5 +229,8 @@ module.exports={
     parametrosNotificacion,
     prorrateoBalanza,
     rangoPagoSeminuevoComisiones,
-    RangoPagoNuevoComisiones
+    RangoPagoNuevoComisiones,
+    InsertaOrdenCompraCentralizado,
+    InsertaOrdenCompraNoCentralizado,
+    InsertaSolicitudFacturacion
 }
