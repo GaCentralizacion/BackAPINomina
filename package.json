@@ -1,7 +1,7 @@
 {
-  "name": "apiejecutables",
+  "name": "apinomina",
   "version": "1.0.0",
-  "description": "Api ejecutables swagger",
+  "description": "Api para el proyecto de nomina swagger",
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
