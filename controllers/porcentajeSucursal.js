@@ -1,10 +1,10 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function InfoPorcentajes(mes, anio){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('mes',sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -21,7 +21,7 @@ async function InfoPorcentajes(mes, anio){
 async function Sucursales(){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .execute('SEL_SUCURSALES_NOMINA_SP')
 
@@ -36,7 +36,7 @@ async function Sucursales(){
 async function ActualizarPorcentaje(consecutivo, mes, anio, porcentaje,idUsuario){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('consecutivo',sql.Int, consecutivo)
                                 .input('mes',sql.Int, mes)
@@ -56,7 +56,7 @@ async function ActualizarPorcentaje(consecutivo, mes, anio, porcentaje,idUsuario
 async function GuardarPorcentaje(mes, anio, porcentaje, idUsuario,idSucursal){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('mes',sql.Int, mes)
                                 .input('anio',sql.Int, anio)
@@ -76,7 +76,7 @@ async function GuardarPorcentaje(mes, anio, porcentaje, idUsuario,idSucursal){
 async function InfoPorcentajesServicio(){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .execute('SEL_PORCENTAJES_SERVICIOS_SP')
 
@@ -91,7 +91,7 @@ async function InfoPorcentajesServicio(){
 async function ActualizarPorcentajeServicio(consecutivo, porcentaje, idUsuario){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('consecutivo',sql.Int, consecutivo)
                                 .input('porcentaje',sql.Decimal(18,2), porcentaje)
@@ -109,7 +109,7 @@ async function ActualizarPorcentajeServicio(consecutivo, porcentaje, idUsuario){
 async function GuardarPorcentajeServicio(porcentaje, idUsuario, idSucursal){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('porcentaje',sql.Int, porcentaje)
                                 .input('idUsuario',sql.Decimal(18,2), idUsuario)

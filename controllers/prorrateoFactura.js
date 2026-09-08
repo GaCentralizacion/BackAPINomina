@@ -1,9 +1,9 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function facturas(){
     try {
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                     .execute('SEL_FACTURASPRORRATEO_SP')
 

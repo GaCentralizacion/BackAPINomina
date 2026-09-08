@@ -1,10 +1,10 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function catalogoConceptoSabana(){
     try {
         
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                                 .execute('CATALOGO_CONCEPTO_SABANA_SICOSS')
 
@@ -17,7 +17,7 @@ async function catalogoConceptoSabana(){
 
 async function fechasPagas(anio, mes){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                                 .input('anio',sql.Int,anio)
                                 .input('mes' ,sql.Int,mes)
@@ -31,7 +31,7 @@ async function fechasPagas(anio, mes){
 
 async function lugarestrabajo(){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                                 .execute('LUGARES_TRABAJO_SICOSS')
 
@@ -43,7 +43,7 @@ async function lugarestrabajo(){
 
 async function SicossGrupo(){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
 
         let categorias = await pool.request().query(`
             SELECT gc.grupoId as id_grupo
@@ -68,7 +68,7 @@ async function SicossGrupo(){
 async function PeriodosSicoss(){
     try {
         
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                                 .execute('SEL_PERIODOS_SICOSS')
 
@@ -83,7 +83,7 @@ async function PeriodosSicoss(){
 async function TipoNominaSicoss(){
     try {
         
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                                 .execute('SEL_TIPO_NOMINA_SICOSS')
 
@@ -98,7 +98,7 @@ async function TipoNominaSicoss(){
 async function RelacionWSFCentralizacion(){
     try {
         
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                                 .execute('RELACION_WSF_CENTRALIZACION_COMISIONES')
 
@@ -112,7 +112,7 @@ async function RelacionWSFCentralizacion(){
 
 async function lugarestrabajoUsuario(idUsuario){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario)
                                 .execute('LUGARES_TRABAJO_SICOSS_USUARIO')

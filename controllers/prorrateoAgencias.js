@@ -1,9 +1,9 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function InfoDepartamentosAgencias(){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                             .execute('SEL_DEPARTAMENTOS_AGENCIAS_PRORRATEO_SP')
         return peticion.recordset
@@ -15,7 +15,7 @@ async function InfoDepartamentosAgencias(){
 
 async function detalleAgencias(idAgencias){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                             .input('idDepartamento', sql.Int,idAgencias )
                             .execute('SEL_DEPARTAMENTOS_AGENCIAS_FLOTILLA_SP')
@@ -28,7 +28,7 @@ async function detalleAgencias(idAgencias){
 
 async function eliminaSucFlotillaAgencia(idDetalleFlotilla,idUsuario){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                             .input('idDetalleFlotilla', sql.Int,idDetalleFlotilla )
                             .input('idUsuario', sql.Int,idUsuario )
@@ -42,7 +42,7 @@ async function eliminaSucFlotillaAgencia(idDetalleFlotilla,idUsuario){
 
 async function insertarSucFlotillaAgencia(IdFlotilla,idSucursal,porcentaje,idUsuario,porSucursal){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                             .input('IdFlotilla', sql.Int,IdFlotilla )
                             .input('idSucursal', sql.Int,idSucursal )
@@ -59,7 +59,7 @@ async function insertarSucFlotillaAgencia(IdFlotilla,idSucursal,porcentaje,idUsu
 
 async function DepartamentoAgencias(){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                             .execute('DEPARTAMENTO_AGENCIAS_SP')
         return peticion.recordset
@@ -71,7 +71,7 @@ async function DepartamentoAgencias(){
 
 async function AgregaEliminaAgencia(id_departamento,opcion,idUsuario){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                             .input('id_departamento', sql.Int,id_departamento )
                             .input('opcion', sql.Int,opcion )

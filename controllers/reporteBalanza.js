@@ -1,10 +1,10 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function ReporteBalanza(anio, mes, quincena){
     try {
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('anio',sql.Int, anio)
                                 .input('mes', sql.Int, mes)

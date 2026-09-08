@@ -1,19 +1,15 @@
-const config = require('../configDbs')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 
 async function EmpleadosActivosSucursal(Centro_ID) {
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
                                 .input('Centro_ID', sql.Int, Centro_ID)
                                 .execute('EMPLEADOS_ACTIVOS_SICOSS')
 
         let resultado = peticion.recordset
-
-        pool = await pool.close()
         return resultado
 
     } catch (err) {
@@ -23,15 +19,11 @@ async function EmpleadosActivosSucursal(Centro_ID) {
 
 async function SucursalProrrateoConcepto() {
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
                                 .execute('SUCURSAL_PRORRATEO_CONCEPTO')
 
         let resultado = peticion.recordset
-
-        pool = await pool.close()
         return resultado
 
     } catch (err) {
@@ -41,9 +33,7 @@ async function SucursalProrrateoConcepto() {
 
 async function InsertaProrrateo(idRh,idCentro_Id,Centro_Id_Prorrateo,porcentaje) {
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
                                 .input('idRh', sql.Int, idRh)
                                 .input('Centro_Id', sql.Int, idCentro_Id)
@@ -52,8 +42,6 @@ async function InsertaProrrateo(idRh,idCentro_Id,Centro_Id_Prorrateo,porcentaje)
                                 .execute('INS_PRORRATEO_NUEVO')
 
         let resultado = peticion.recordset
-
-        pool = await pool.close()
         return resultado
 
     } catch (err) {
@@ -63,16 +51,12 @@ async function InsertaProrrateo(idRh,idCentro_Id,Centro_Id_Prorrateo,porcentaje)
 
 async function DetalleProrrateoEmpleado(idRh) {
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
                                 .input('idRh', sql.Int, idRh)
                                 .execute('SEL_PRORRATEO_NUEVO_EMPLEADO')
 
         let resultado = peticion.recordset
-
-        pool = await pool.close()
         return resultado
 
     } catch (err) {
@@ -82,17 +66,13 @@ async function DetalleProrrateoEmpleado(idRh) {
 
 async function EliminaProrrateoEmpleado(idRh, id){
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
         .input('idRh', sql.Int, idRh)
         .input('id', sql.Int, id)
         .execute('DEL_BORRA_PRORRATEO_EMPLEADO')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -102,16 +82,12 @@ async function EliminaProrrateoEmpleado(idRh, id){
 
 async function ProrrateosSucursal(Centro_Id){
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
         .input('Centro_Id', sql.Int, Centro_Id)
         .execute('SEL_PRORRATEO_SUCURSAL')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -121,15 +97,11 @@ async function ProrrateosSucursal(Centro_Id){
 
 async function SucursalProrrateoDisponible(){
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
         .execute('SEL_SUCURSAL_PRORRATEO_DISPONIBLE')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -139,17 +111,13 @@ async function SucursalProrrateoDisponible(){
 
 async function ConceptosProrrateoSicoss(Centro_Id_activo,Centro_Id){
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
         .input('Centro_Id_activo', sql.Int, Centro_Id_activo)
         .input('Centro_Id', sql.Int, Centro_Id)
         .execute('SEL_CONCEPTOS_PRORRATEO_SICOSS')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -159,9 +127,7 @@ async function ConceptosProrrateoSicoss(Centro_Id_activo,Centro_Id){
 
 async function ValidaCuentaContableProrrateo(dirIp,nombreBaseDatos,cuentaContable){
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
         .input('dirIp', sql.VarChar(50), dirIp)
         .input('nombreBaseDatos', sql.VarChar(100), nombreBaseDatos)
@@ -169,8 +135,6 @@ async function ValidaCuentaContableProrrateo(dirIp,nombreBaseDatos,cuentaContabl
         .execute('VALIDA_CUENTACONTABLE_PRORRATEO')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -181,9 +145,7 @@ async function ValidaCuentaContableProrrateo(dirIp,nombreBaseDatos,cuentaContabl
 
 async function InsConceptosProrrateoSicoss(Centro_Id_Activo,Centro_Id,grupoId,nombreGrupo,DescripcionBPRO,estatus,cuenta){
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
         .input('Centro_Id_Activo', sql.Int, Centro_Id_Activo)
         .input('Centro_Id', sql.Int, Centro_Id)
@@ -195,8 +157,6 @@ async function InsConceptosProrrateoSicoss(Centro_Id_Activo,Centro_Id,grupoId,no
         .execute('INS_CONCEPTOS_PRORRATEO_SICOSS')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -206,17 +166,13 @@ async function InsConceptosProrrateoSicoss(Centro_Id_Activo,Centro_Id,grupoId,no
 
 async function BuscaCuentaContable(Centro_Id_prorrateo,Centro_Id){
     try {
-        let pool = await new sql.connect(config);
-        await pool.close()
-        pool = await sql.connect(config);
+        const pool = await getPool();
         let peticion = await pool.request()
         .input('Centro_Id_prorrateo', sql.Int, Centro_Id_prorrateo)
         .input('Centro_Id', sql.Int, Centro_Id)
         .execute('BUSQUEDACUENTACONTABLE')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {

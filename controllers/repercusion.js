@@ -1,9 +1,9 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function selFechaEjecucion(anio,mes){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                             .input('anio', sql.Int,anio )
                             .input('mes', sql.Int,mes )
@@ -17,7 +17,7 @@ async function selFechaEjecucion(anio,mes){
 
 async function resumenInsertaBalanzaCentralizado(mes, anio, idDetalle,inserta){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('mes', sql.Int,mes )
         .input('anio', sql.Int,anio )
@@ -33,7 +33,7 @@ async function resumenInsertaBalanzaCentralizado(mes, anio, idDetalle,inserta){
 
 async function balanzaComisionesBono( mes, anio, quincena){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('mes',sql.Int, mes)
         .input('anio', sql.Int, anio)
@@ -49,7 +49,7 @@ async function balanzaComisionesBono( mes, anio, quincena){
 
 async function consultaOrdenesCompra(fecha){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('fecha',sql.VarChar(10), fecha)
         .execute('ORDENES_COMPRA_REPERCUSION')
@@ -63,7 +63,7 @@ async function consultaOrdenesCompra(fecha){
 
 async function consultaFacturas(fecha){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('fecha',sql.NVarChar(255), fecha)
         .execute('CONSULTA_FACTURAS_REPERCUSION')
@@ -77,7 +77,7 @@ async function consultaFacturas(fecha){
 
 async function consultaOCError(oc,sucursal){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('oc',sql.VarChar(100), oc)
         .input('sucursal',sql.VarChar(150), sucursal)
@@ -92,7 +92,7 @@ async function consultaOCError(oc,sucursal){
 
 async function consultaFechaFaturacion(mes,anio,quincena,inserta){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('mes',sql.Int, mes)
         .input('anio',sql.Int, anio)
@@ -109,7 +109,7 @@ async function consultaFechaFaturacion(mes,anio,quincena,inserta){
 
 async function parametrosNotificacion(tabla){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('tabla',sql.VarChar(150), tabla)
         .execute('OBTIENE_PARAMETROS_V2')
@@ -123,7 +123,7 @@ async function parametrosNotificacion(tabla){
 
 async function prorrateoBalanza(mes,anio,quincena,dia){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('mes',sql.Int, mes)
         .input('anio',sql.Int, anio)
@@ -140,7 +140,7 @@ async function prorrateoBalanza(mes,anio,quincena,dia){
 
 async function rangoPagoSeminuevoComisiones(anio,mes){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('anio',sql.Int, anio)
         .input('mes',sql.Int, mes)
@@ -155,7 +155,7 @@ async function rangoPagoSeminuevoComisiones(anio,mes){
 
 async function RangoPagoNuevoComisiones(anio,mes){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('anio',sql.Int, anio)
         .input('mes',sql.Int, mes)
@@ -170,7 +170,7 @@ async function RangoPagoNuevoComisiones(anio,mes){
 
 async function InsertaOrdenCompraCentralizado(mes, anio, idDetalle,inserta){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('mes', sql.Int,mes )
         .input('anio', sql.Int,anio )
@@ -186,7 +186,7 @@ async function InsertaOrdenCompraCentralizado(mes, anio, idDetalle,inserta){
 
 async function InsertaOrdenCompraNoCentralizado(mes, anio, idpagadora ,quincena,inserta){
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('mes', sql.Int,mes )
         .input('anio', sql.Int,anio )
@@ -203,7 +203,7 @@ async function InsertaOrdenCompraNoCentralizado(mes, anio, idpagadora ,quincena,
 
 async function InsertaSolicitudFacturacion(mes, anio,quincena,idUsuario){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('mes',sql.Int,mes)
         .input('anio',sql.Int, anio)

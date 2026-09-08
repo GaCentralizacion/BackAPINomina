@@ -1,10 +1,10 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function Organizaciones(idUsuario, anio){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int, idUsuario)
                                 .input('anio',sql.Int, anio)
@@ -21,7 +21,7 @@ async function Organizaciones(idUsuario, anio){
 async function Empresas(idUsuario, anio, id_organizacion){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int, idUsuario)
                                 .input('anio',sql.Int, anio)
@@ -39,7 +39,7 @@ async function Empresas(idUsuario, anio, id_organizacion){
 async function anio(){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .execute('SEL_ANIOS')
 
@@ -54,7 +54,7 @@ async function anio(){
 async function Fechas(idUsuario, anio, id_organizacion, idEmpresa){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('anio',sql.Int,anio )
@@ -73,7 +73,7 @@ async function Fechas(idUsuario, anio, id_organizacion, idEmpresa){
 async function Nomina(idUsuario, anio, id_organizacion, idEmpresa, fecha){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('anio',sql.Int,anio )
@@ -93,7 +93,7 @@ async function Nomina(idUsuario, anio, id_organizacion, idEmpresa, fecha){
 async function ReporteNomina(idUsuario, anio, id_organizacion, idEmpresa, fecha){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('anio',sql.Int,anio )
@@ -113,7 +113,7 @@ async function ReporteNomina(idUsuario, anio, id_organizacion, idEmpresa, fecha)
 async function TipoConceptos(idUsuario, anio, id_organizacion, idEmpresa, fecha){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('anio',sql.Int,anio )
@@ -133,7 +133,7 @@ async function TipoConceptos(idUsuario, anio, id_organizacion, idEmpresa, fecha)
 async function DetalleNomina(idUsuario, anio, fecha, CME_ID_POSITION, CME_N_POSITION){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('anio',sql.Int,anio )
@@ -153,7 +153,7 @@ async function DetalleNomina(idUsuario, anio, fecha, CME_ID_POSITION, CME_N_POSI
 async function Conceptos(idUsuario,anio,id_organizacion,idEmpresa,fecha,tipo){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('anio',sql.Int,anio )
@@ -174,7 +174,7 @@ async function Conceptos(idUsuario,anio,id_organizacion,idEmpresa,fecha,tipo){
 async function GuardarConcepto(idUsuario,id_concepto,value){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('id_concepto',sql.Int,id_concepto )
@@ -192,7 +192,7 @@ async function GuardarConcepto(idUsuario,id_concepto,value){
 async function GuardarConceptos(value){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('valor',sql.VarChar(150),value )
                                 .execute('SEL_GuardarConceptos_SP')
@@ -208,7 +208,7 @@ async function GuardarConceptos(value){
 async function UPDCatalogo(idUsuario,idEmpresa,idSucursal,idsubtramite,subtramite,idclasificacion,costo,precio,conUtilidad){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('idEmpresa',sql.Int,idEmpresa )
@@ -232,7 +232,7 @@ async function UPDCatalogo(idUsuario,idEmpresa,idSucursal,idsubtramite,subtramit
 async function DELCatalogo(idUsuario,idEmpresa,idSucursal,idsubtramite,estatus){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('idEmpresa',sql.Int,idEmpresa )
@@ -252,7 +252,7 @@ async function DELCatalogo(idUsuario,idEmpresa,idSucursal,idsubtramite,estatus){
 async function SelProveedores(idUsuario,idEmpresa,idSucursal){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('idEmpresa',sql.Int,idEmpresa )
@@ -270,7 +270,7 @@ async function SelProveedores(idUsuario,idEmpresa,idSucursal){
 async function SelTramites(idUsuario,idEmpresa,idSucursal){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('idEmpresa',sql.Int,idEmpresa )
@@ -288,7 +288,7 @@ async function SelTramites(idUsuario,idEmpresa,idSucursal){
 async function INSCatalogo(idUsuario,idEmpresa,idSucursal,subtramite,idclasificacion,idpersona,costo,precio){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idUsuario',sql.Int,idUsuario )
                                 .input('idEmpresa',sql.Int,idEmpresa )

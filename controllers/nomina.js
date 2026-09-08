@@ -1,12 +1,12 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function fechasPagas(mes, anio){
     try {
         
         let tipo = ''
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('mes',sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -27,7 +27,7 @@ async function ObtieneAsientoContablePaga(lugarTrabajo, fechaPagaSelected, tipoS
         var poliza   = 4;
         var insertaPoliza  = 0; 
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('poliza',sql.Int, poliza)
                                 .input('insertaPoliza', sql.Int, insertaPoliza)
@@ -48,7 +48,7 @@ async function ObtieneAsientoContablePaga(lugarTrabajo, fechaPagaSelected, tipoS
 async function LugaresTrabajo(){
 
     try {
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .execute('LUGARES_DE_TRABAJO_V2')
 
@@ -66,7 +66,7 @@ async function GeneraPolizaIndividual(lugarTrabajo, fechaPagaSelected, tipoSelec
         var poliza   = 4;
         var insertaPoliza  = 1; 
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('poliza',sql.Int, poliza)
                                 .input('insertaPoliza', sql.Int, insertaPoliza)
@@ -89,7 +89,7 @@ async function ConsultaBitacoraPolizas(mes,anio){
     try {
         
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('mes',sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -108,7 +108,7 @@ async function FechasPagasBitacora(mes,anio){
         
         var tipo = '';
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('mes',sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -126,7 +126,7 @@ async function FechasPagasBitacora(mes,anio){
 async function ConsultaPoliza(lugarTrabajo,idCabecero){
     try {
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('lugarTrabajo',sql.VarChar(5), lugarTrabajo)
                                 .input('idCabecero', sql.Int, idCabecero)
@@ -142,7 +142,7 @@ async function ConsultaPoliza(lugarTrabajo,idCabecero){
 
 async function ListaEmpresasPoliza() {
     try {
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .execute('LUGAR_TRABAJO_POLIZA_V2')
 
@@ -158,7 +158,7 @@ async function ListaEmpresasPoliza() {
 async function usuarios(){
 
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
 
         let categorias = await pool.request().query('SELECT * FROM USUARIOS u')
 
@@ -174,7 +174,7 @@ async function usuarios(){
 async function ReporteExcelMeta(lugarTrabajo,frecuencia,fechaPaga){
     try {
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('work_locat',sql.VarChar(5), lugarTrabajo)
                                 .input('frecuencia', sql.VarChar(4), frecuencia)
@@ -191,7 +191,7 @@ async function ReporteExcelMeta(lugarTrabajo,frecuencia,fechaPaga){
 async function ConsultaSabanaMeta(lugarTrabajo, fechaPagaSelected, tipoSelected, frecuenciaSelected){
     try {
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('lugarTrabajo', sql.VarChar(5), lugarTrabajo)
                                 .input('fechasPaga', sql.VarChar(10), fechaPagaSelected)
@@ -210,7 +210,7 @@ async function ConsultaSabanaMeta(lugarTrabajo, fechaPagaSelected, tipoSelected,
 async function GruposMeta(){
 
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
 
         let categorias = await pool.request().query(`
 
@@ -240,7 +240,7 @@ async function GruposMeta(){
 
 async function CalculoPolizaNomina(mes,anio,fechaNomina,tipoNomina,lugarTrabajo){
     try {
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('mes', sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -257,7 +257,7 @@ async function CalculoPolizaNomina(mes,anio,fechaNomina,tipoNomina,lugarTrabajo)
 
 async function ConsultaAsientoPolizaBpro(idSucursal, fechaPaga, tipo){
     try {
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idSucursal', sql.VarChar(6), idSucursal)
                                 .input('fechaPaga', sql.VarChar(10), fechaPaga)

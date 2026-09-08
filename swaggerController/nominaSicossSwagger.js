@@ -738,7 +738,7 @@ router.route('/EliminaProrrateo').post((req,resp) =>{
  *          '200':
  *              description: Conciliación entre SICOSS y BPRO
  */
-router.route('/ConciliaSicossVsBpro').post((req,resp) =>{
+router.route('/ConciliaSicossVsBpro').post(async (req,resp) =>{
 
     let anio = req.body.anio
     let mes = req.body.mes
@@ -748,9 +748,15 @@ router.route('/ConciliaSicossVsBpro').post((req,resp) =>{
     let empresas = req.body.empresas
     let sucursales = req.body.sucursales
 
-    peticion.conciliaSicossVsBpro(anio,mes,periodoId,periodo,tipoNomina,empresas,sucursales).then(res =>{
+    try {
+        const res = await peticion.conciliaSicossVsBpro(anio,mes,periodoId,periodo,tipoNomina,empresas,sucursales)
         resp.status(200).json(res)
-    })
+    } catch (error) {
+        console.error('Error al conciliar SICOSS contra BPRO:', error)
+        resp.status(500).json({
+            error: 'No fue posible realizar la conciliacion SICOSS contra BPRO'
+        })
+    }
 
 })
 

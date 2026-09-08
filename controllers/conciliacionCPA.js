@@ -1,6 +1,5 @@
-const config = require('../configDb')
 const sql = require('mssql')
-const poolPromise = sql.connect(config)
+const { getPool } = require('../db/sqlPool')
 
 function normalizeToSqlXml(value, rootNode = 'data') {
     if (value === null || value === undefined) {
@@ -21,7 +20,7 @@ function normalizeToSqlXml(value, rootNode = 'data') {
 
 async function polizasPorConciliar() {
     try {
-        const pool = await poolPromise
+        const pool = await getPool()
         let peticion = await pool.request()
                                 .execute('SEL_POLIZAS_POR_CONCILIAR_CPA')
 
@@ -36,7 +35,7 @@ async function polizasPorConciliar() {
 
 async function extractor(mes, anio, periodoId, periodo, tipoNomina, lugarTrabajo){
     try {
-        const pool = await poolPromise
+        const pool = await getPool()
         let peticion = await pool.request()
                                 .input('mes', sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -57,7 +56,7 @@ async function inserta_bitacora_cpa(mes, anio, periodoId, periodo, tipoNomina, l
     try {
         const xmlEnvio = normalizeToSqlXml(jsonEnvio, 'jsonEnvio')
 
-        const pool = await poolPromise
+        const pool = await getPool()
         let peticion = await pool.request()
                                 .input('mes', sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -80,7 +79,7 @@ async function actualiza_bitacora_cpa(token, jsonRespuesta, payload, rfcEmisor, 
     try {
         const xmlRespuesta = normalizeToSqlXml(jsonRespuesta, 'jsonRespuesta')
 
-        const pool = await poolPromise
+        const pool = await getPool()
         let peticion = await pool.request()
                                 .input('token', sql.NVarChar(200), token)
                                 .input('jsonRespuesta', sql.Xml, xmlRespuesta)

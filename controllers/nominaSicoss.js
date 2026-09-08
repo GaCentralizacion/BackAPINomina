@@ -1,10 +1,10 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function vistaPreviaPoliza(anio,mes,periodoId,periodo,centroId,tipoNomina){
     try {
         
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('anio',sql.Int,anio)
         .input('mes',sql.Int,mes)
@@ -24,7 +24,7 @@ async function vistaPreviaPoliza(anio,mes,periodoId,periodo,centroId,tipoNomina)
 async function CalculoPolizaSicoss(mes, anio, periodoId, periodo, tipoNomina, lugarTrabajo,inserta){
     try {
         
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                                 .input('mes', sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -45,7 +45,7 @@ async function CalculoPolizaSicoss(mes, anio, periodoId, periodo, tipoNomina, lu
 async function GruposMetaSICOSS(){
 
     try{
-        let pool = await sql.connect(config)
+        let pool = await getPool()
 
         let categorias = await pool.request().query(`
 
@@ -82,7 +82,7 @@ async function GruposMetaSICOSS(){
 
 async function ConsultaAsientoPolizaBproSICOSS(idSucursal, fechaPaga, tipo, periodo,tipoNomina, esAbierta){
     try {
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idSucursal', sql.Int, idSucursal)
                                 .input('fechaPaga', sql.VarChar(10), fechaPaga)
@@ -103,7 +103,7 @@ async function ConsultaBitacoraPolizasSICOSS(mes, anio){
 
     try{
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('mes',sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -121,7 +121,7 @@ async function ConsultaBitacoraPolizasSICOSS(mes, anio){
 async function ConsultaPolizaSICOSS(lugarTrabajo,idCabecero){
     try {
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('lugarTrabajo',sql.VarChar(5), lugarTrabajo)
                                 .input('idCabecero', sql.Int, idCabecero)
@@ -138,7 +138,7 @@ async function ConsultaPolizaSICOSS(lugarTrabajo,idCabecero){
 
 async function ConsultaAsientoPolizaBproEmpleadoSICOSS(idSucursal, fechaPaga, tipo,tipoNomina, esAbierta){
     try {
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idSucursal', sql.Int, idSucursal)
                                 .input('fechaPaga', sql.VarChar(10), fechaPaga)
@@ -157,7 +157,7 @@ async function ConsultaAsientoPolizaBproEmpleadoSICOSS(idSucursal, fechaPaga, ti
 async function CalculoPolizaAbiertaSicoss(mes, anio, periodoId, periodo, tipoNomina, lugarTrabajo){
     try {
         
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
                                 .input('mes', sql.Int, mes)
                                 .input('anio', sql.Int, anio)
@@ -176,7 +176,7 @@ async function CalculoPolizaAbiertaSicoss(mes, anio, periodoId, periodo, tipoNom
 
 async function InsertaBorraFechaPaga(periodoId,periodo,tipoNomina,fechInicio,fechFin,insertaBorra){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('periodoId', sql.Int, periodoId)
         .input('periodo', sql.Int, periodo)
@@ -195,13 +195,11 @@ async function InsertaBorraFechaPaga(periodoId,periodo,tipoNomina,fechInicio,fec
 
 async function EmpleadosProrrateadosSicoss(){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .execute('EMPLEADOS_PRORRATEADOS_SICOSS')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -211,14 +209,12 @@ async function EmpleadosProrrateadosSicoss(){
 
 async function EmpleadosProrrateadosDetalleSicoss(idEmpleado){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('idEmpleado', sql.Int, idEmpleado)
         .execute('EMPLEADOS_PRORRATEADOS_DETALLE_SICOSS')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -228,14 +224,12 @@ async function EmpleadosProrrateadosDetalleSicoss(idEmpleado){
 
 async function DepartamentosSicoss(centroId){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('Centro_ID', sql.Int, centroId)
         .execute('DEPARTAMENTOS_SICOSS')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -245,7 +239,7 @@ async function DepartamentosSicoss(centroId){
 
 async function GUARDA_PRORRATEO_NOMINA_SICOSS(idRh, idDepto, porcentaje){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('idRh', sql.Int, idRh)
         .input('idDepto', sql.VarChar(10), idDepto)
@@ -253,8 +247,6 @@ async function GUARDA_PRORRATEO_NOMINA_SICOSS(idRh, idDepto, porcentaje){
         .execute('GUARDA_PRORRATEO_NOMINA_SICOSS')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -264,15 +256,13 @@ async function GUARDA_PRORRATEO_NOMINA_SICOSS(idRh, idDepto, porcentaje){
 
 async function EliminaProrrateo(idRh, idDepto){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input('idRH', sql.Int, idRh)
         .input('idDepto', sql.VarChar(10), idDepto)
         .execute('ELIMINA_PRORRATEO_NOMINA_SICOSS')
 
         let resultado = peticion.recordset
-
-        await pool.close()
         return resultado
 
     } catch (err) {
@@ -281,9 +271,8 @@ async function EliminaProrrateo(idRh, idDepto){
 }
 
 async function conciliaSicossVsBpro(anio,mes,periodoId,periodo,tipoNomina,empresas,sucursales){
-    try {
-        let pool = await sql.connect(config)
-        let peticion = await pool.request()
+        const pool = await getPool()
+        const peticion = await pool.request()
         .input('anio', sql.Int, anio)
         .input('mes', sql.Int, mes)
         .input('periodoId', sql.Int, periodoId)
@@ -293,14 +282,7 @@ async function conciliaSicossVsBpro(anio,mes,periodoId,periodo,tipoNomina,empres
         .input('sucursales', sql.VarChar(sql.Max), sucursales)
         .execute('CONSILIA_POLIZAS_SICOSS')
 
-        let resultado = peticion.recordsets
-
-        await pool.close()
-        return resultado
-
-    } catch (err) {
-        console.log(err);
-    }
+        return peticion.recordsets
 }
 
 

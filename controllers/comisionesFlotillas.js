@@ -1,10 +1,10 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function InfoDepartamentosComisiones(){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .execute('SEL_DEPARTAMENTOS_COMISIONES_SP')
 
@@ -19,7 +19,7 @@ async function InfoDepartamentosComisiones(){
 async function ActualizarPorcentaje(iddepartamento, estatus, idUsuario){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('iddepartamento',sql.Int, iddepartamento)
                                 .input('estatus',sql.Int, estatus)
@@ -37,7 +37,7 @@ async function ActualizarPorcentaje(iddepartamento, estatus, idUsuario){
 async function DetalleFlotillas(idFlotilla){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idFlotilla',sql.Int, idFlotilla)
                                 .execute('SEL_DEPARTAMENTOS_COMISIONES_FLOTILLA_SP')
@@ -53,7 +53,7 @@ async function DetalleFlotillas(idFlotilla){
 async function EliminaSucFlotilla(idDetalleFlotilla, idUsuario){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idDetalleFlotilla',sql.Int, idDetalleFlotilla)
                                 .input('idUsuario',sql.Int, idUsuario)
@@ -70,7 +70,7 @@ async function EliminaSucFlotilla(idDetalleFlotilla, idUsuario){
 async function InsertarSucFlotilla(IdFlotilla,idSucursal,porcentaje,idUsuario){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('IdFlotilla',sql.Int, IdFlotilla)
                                 .input('idSucursal',sql.Int, idSucursal)
@@ -89,7 +89,7 @@ async function InsertarSucFlotilla(IdFlotilla,idSucursal,porcentaje,idUsuario){
 async function ConfigMarkDevCenter(mes, anio, idDepto){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('mes',sql.Int, mes)
                                 .input('anio',sql.Int, anio)
@@ -106,7 +106,7 @@ async function ConfigMarkDevCenter(mes, anio, idDepto){
 
 async function AgregaEliminaConfMarkDev(idDepto, idEmpresa, idSucursal,anio,mes, accion){
     try{
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idDepto',sql.VarChar(5), idDepto)
                                 .input('idEmpresa',sql.Int, idEmpresa)
@@ -126,7 +126,7 @@ async function AgregaEliminaConfMarkDev(idDepto, idEmpresa, idSucursal,anio,mes,
 async function ConfiguracionRangoNuevosComisiones(mes,anio,limInferior,limSuperior,porcentaje,accion){
 
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input("mes",sql.Int,mes)
         .input("anio",sql.Int,anio)
@@ -148,7 +148,7 @@ async function ConfiguracionRangoNuevosComisiones(mes,anio,limInferior,limSuperi
 async function ConfiguracionRangoSemiNuevosComisiones(mes,anio,limInferior,limSuperior,monto,accion){
 
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input("mes",sql.Int,mes)
         .input("anio",sql.Int,anio)
@@ -169,7 +169,7 @@ async function ConfiguracionRangoSemiNuevosComisiones(mes,anio,limInferior,limSu
 
 async function SucursalesComisiones (){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request().execute('SUCURSALES_COMISIONES')
 
         return peticion.recordset
@@ -181,7 +181,7 @@ async function SucursalesComisiones (){
 
 async function CatEmpresasComisiones (){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request().execute('CAT_EMPRESAS_COMISIONES')
 
         return peticion.recordset
@@ -193,7 +193,7 @@ async function CatEmpresasComisiones (){
 
 async function CalculoGastoComisionesFlotillas (idSucursalWSF, anio, mes, detalle){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input("idSucursalWSF",sql.Int,idSucursalWSF)
         .input("anio",sql.Int,anio)
@@ -210,7 +210,7 @@ async function CalculoGastoComisionesFlotillas (idSucursalWSF, anio, mes, detall
 
 async function CalculoDetalleComisionesFlotillas (base,ip,nombreDepto,fechaInicio,fechafin,totalGasto){
     try {
-        let pool = await sql.connect(config)
+        let pool = await getPool()
         let peticion = await pool.request()
         .input("base",sql.NVarChar(150),base)
         .input("ip",sql.NVarChar(100),ip)

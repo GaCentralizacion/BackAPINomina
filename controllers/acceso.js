@@ -1,10 +1,10 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function permisos(User, pass){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('User',sql.VarChar(10), User)
                                 .input('pass', sql.VarChar(10), pass)
@@ -21,7 +21,7 @@ async function permisos(User, pass){
 async function usuarioLogeado(idEmpleado){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idEmpleado',sql.Int, idEmpleado)
                                 .execute('SEL_EMPLEADO_SP')
@@ -37,7 +37,7 @@ async function usuarioLogeado(idEmpleado){
 async function menuNomina(idRol){
     try {
                 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('idRol',sql.Int, idRol)
                                 .execute('SEL_MENU_NOMINA')
@@ -53,7 +53,7 @@ async function menuNomina(idRol){
 async function menuNominaDetalle(items,idRol){
     try {
                 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('items',sql.Int, items)
                                 .input('idRol',sql.Int, idRol)

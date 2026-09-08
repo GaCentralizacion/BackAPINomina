@@ -1,10 +1,10 @@
-const config = require('../configDb')
 const sql = require('mssql')
+const { getPool } = require('../db/sqlPool')
 
 async function InfoDepartamentos(){
     try {
         
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .execute('SEL_DEPARTAMENTOS_CORPORATIVO_SP')
 
@@ -19,7 +19,7 @@ async function InfoDepartamentos(){
 async function ActualizarPorcentaje(){
     try {
 
-        let pool = await sql.connect(config);
+        let pool = await getPool();
         let peticion = await pool.request()
                                 .input('iddepartamento',sql.Int, iddepartamento)
                                 .input('estatus', sql.Int, estatus)
